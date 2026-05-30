@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ANDALUS — Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8a6f30;--black:#0A0806;--dark:#110e09;--dark2:#1a1510;--text:#e8dcc8;--text-dim:#9a8a72}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-family:'Jost',sans-serif;overflow:hidden}
+
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;opacity:1;pointer-events:all}
+.screen.hidden{opacity:0;pointer-events:none}
+
+@keyframes exitUp{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-50px) scale(0.97)}}
+@keyframes enterUp{from{opacity:0;transform:translateY(60px) scale(0.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes exitDown{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(60px)}}
+@keyframes enterDown{from{opacity:0;transform:translateY(-50px)}to{opacity:1;transform:translateY(0)}}
+.do-exit-up{animation:exitUp 0.42s cubic-bezier(0.4,0,0.2,1) forwards}
+.do-enter-up{animation:enterUp 0.52s cubic-bezier(0.16,1,0.3,1) forwards}
+.do-exit-down{animation:exitDown 0.38s cubic-bezier(0.4,0,0.2,1) forwards}
+.do-enter-down{animation:enterDown 0.48s cubic-bezier(0.16,1,0.3,1) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+@keyframes flicker{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.65;transform:scale(0.93)}}
+@keyframes hostessReveal{from{opacity:0;transform:translateY(50px) scale(0.95);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+
+.scroll-area{flex:1;overflow-y:auto;width:100%;-webkit-overflow-scrolling:touch}
+.scroll-area::-webkit-scrollbar{width:2px}
+.scroll-area::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+.ambient{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 100%,rgba(180,120,20,0.20) 0%,transparent 70%),radial-gradient(ellipse 45% 35% at 20% 25%,rgba(180,100,10,0.09) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 80% 20%,rgba(180,100,10,0.07) 0%,transparent 60%)}
+.lang-sw{display:flex;align-items:center;border:1px solid rgba(201,168,76,0.28);overflow:hidden;border-radius:2px}
+.lang-opt{padding:6px 12px;font-size:11px;font-family:'Jost',sans-serif;letter-spacing:0.08em;color:var(--text-dim);background:transparent;border:none;cursor:pointer;transition:background .2s,color .2s}
+.lang-opt.active{background:rgba(201,168,76,0.18);color:var(--gold)}
+.lang-sep{width:1px;height:18px;background:rgba(201,168,76,0.22)}
+
+/* S1 */
+#s1{background:var(--black);text-align:center;z-index:10}
+.s1-inner{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2;padding:0 32px;width:100%}
+.logo-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeUp 1s ease both 0.2s}
+.logo-svg{width:56px;height:56px;margin-bottom:4px}
+.logo-name{font-family:'Cinzel',serif;font-size:clamp(30px,8vw,46px);letter-spacing:.28em;color:var(--gold);font-weight:600;line-height:1}
+.logo-sub{font-family:'Jost',sans-serif;font-weight:200;font-size:11px;letter-spacing:.55em;color:var(--gold-dim);text-transform:uppercase;margin-top:4px}
+.divider{width:130px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:26px auto;animation:fadeUp 1s ease both 0.4s;position:relative;z-index:2}
+.w-title{font-family:'Cinzel',serif;font-size:clamp(14px,4vw,20px);letter-spacing:.14em;color:var(--text);animation:fadeUp 1s ease both 0.5s;position:relative;z-index:2}
+.w-sub{font-size:13px;font-weight:300;color:var(--text-dim);letter-spacing:.04em;margin-top:10px;animation:fadeUp 1s ease both 0.6s;position:relative;z-index:2;line-height:1.7;max-width:280px;text-align:center}
+.orn-line{display:flex;align-items:center;gap:14px;justify-content:center;margin:30px auto;animation:fadeUp 1s ease both 0.65s;position:relative;z-index:2;width:180px}
+.orn-line .ln{flex:1;height:1px}
+.orn-line .ln:first-child{background:linear-gradient(90deg,transparent,var(--gold))}
+.orn-line .ln:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.orn-line .di{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+.enter-btn{padding:16px 52px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.24em;cursor:pointer;position:relative;overflow:hidden;transition:color .3s;animation:fadeUp 1s ease both 0.8s;z-index:2}
+.enter-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);transition:transform .35s ease;z-index:-1}
+.enter-btn:hover::before,.enter-btn:active::before{transform:translateX(0)}
+.enter-btn:hover,.enter-btn:active{color:var(--black)}
+.insta-tag{font-size:11px;color:var(--gold-dim);letter-spacing:.14em;font-weight:200;animation:fadeUp 1s ease both 1s;z-index:2;margin-top:22px}
+.s1-lang{position:absolute;top:20px;right:20px;z-index:10;animation:fadeUp .6s ease both 0.3s}
+
+/* S2 */
+#s2{z-index:9;background:var(--black)}
+.g-bg{position:absolute;inset:0;background:radial-gradient(ellipse 75% 65% at 50% 85%,rgba(140,90,10,.28) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 25% 20%,rgba(180,110,10,.13) 0%,transparent 60%)}
+.g-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;height:100%}
+.g-header{display:flex;align-items:center;justify-content:space-between;width:100%;padding:18px 22px;flex-shrink:0}
+.g-logo{display:flex;align-items:center;gap:10px}
+.g-logo span{font-family:'Cinzel',serif;font-size:16px;letter-spacing:.22em;color:var(--gold)}
+.h-area{flex:1;display:flex;align-items:center;justify-content:center;position:relative;width:100%;overflow:hidden}
+.h-sil{width:min(290px,74vw);height:min(440px,64vh);position:relative;animation:hostessReveal 1.2s cubic-bezier(0.16,1,0.3,1) both}
+.arch{position:absolute;inset:-24px -32px;border:1px solid rgba(201,168,76,.22);border-radius:200px 200px 0 0;pointer-events:none}
+.arch::before{content:'';position:absolute;inset:12px;border:1px solid rgba(201,168,76,.11);border-radius:200px 200px 0 0}
+.h-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(40,28,12,.35) 0%,rgba(15,10,3,.85) 100%);border-radius:160px 160px 0 0;overflow:hidden;position:relative}
+.light-orb{position:absolute;border-radius:50%;filter:blur(45px);animation:flicker 3.5s ease-in-out infinite}
+.lo1{width:130px;height:130px;background:rgba(255,160,30,.16);top:8%;left:8%}
+.lo2{width:90px;height:90px;background:rgba(255,140,20,.13);top:18%;right:12%;animation-delay:.8s}
+.lo3{width:110px;height:110px;background:rgba(200,130,10,.11);bottom:28%;left:18%;animation-delay:1.6s}
+.hostess-placeholder{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:.3;z-index:2;position:relative}
+.hostess-actual{width:100%;height:100%;object-fit:cover;border-radius:160px 160px 0 0;position:absolute;inset:0}
+.g-bar{width:calc(100% - 40px);max-width:360px;margin:0 auto 24px;padding:16px 22px;background:rgba(12,9,4,.88);border:1px solid rgba(201,168,76,.28);display:flex;align-items:center;justify-content:space-between;cursor:pointer;animation:fadeUp .9s ease both 0.5s;backdrop-filter:blur(12px);transition:border-color .3s;flex-shrink:0}
+.g-bar:hover{border-color:rgba(201,168,76,.55)}
+.g-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--text);font-weight:300;line-height:1.3}
+.audio-ic{color:var(--gold);font-size:20px;animation:pulse 2.5s ease infinite;flex-shrink:0;margin-left:14px}
+
+/* S3 */
+#s3{z-index:8;background:var(--dark)}
+.m-header{width:100%;padding:16px 20px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.m-logo{display:flex;align-items:center;gap:10px}
+.m-logo span,.logo-svg-sm,.logo-svg-md{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.22em;color:var(--gold)}
+.logo-svg-sm{width:22px;height:22px}
+.logo-svg-md{width:26px;height:26px}
+.m-title-sec{text-align:center;padding:26px 24px 14px;animation:fadeUp .6s ease both}
+.m-title{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,34px);letter-spacing:.38em;color:var(--text);font-weight:400}
+.m-orn{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:12px}
+.m-orn .ln{flex:1;max-width:80px;height:1px}
+.m-orn .ln:first-child{background:linear-gradient(90deg,transparent,var(--gold))}
+.m-orn .ln:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
+.m-orn .di{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
+.cats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 4px;width:100%;max-width:500px;margin:0 auto}
+.cat-card{position:relative;border:1px solid rgba(201,168,76,.2);cursor:pointer;overflow:hidden;aspect-ratio:1/0.85;background:var(--dark2);transition:border-color .3s,transform .28s,box-shadow .3s;animation:fadeUp .5s ease both}
+.cat-card:nth-child(5){grid-column:span 2;aspect-ratio:unset;height:96px}
+.cat-card:hover,.cat-card:active{border-color:rgba(201,168,76,.55);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.45)}
+.cat-bg-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.45;transition:opacity .3s}
+.cat-card:hover .cat-bg-img,.cat-card:active .cat-bg-img{opacity:0.62}
+.cat-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.78) 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:12px 10px}
+.cat-name{font-family:'Cinzel',serif;font-size:clamp(10px,2.5vw,13px);letter-spacing:.13em;color:#fff;text-align:center;font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.95);line-height:1.4}
+.cat-acc{width:22px;height:1px;background:var(--gold);margin-top:6px;transition:width .3s}
+.cat-card:hover .cat-acc,.cat-card:active .cat-acc{width:38px}
+.m-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 12px 32px;width:100%;max-width:500px;margin:0 auto}
+.act-btn{padding:15px 8px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.22);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .3s,border-color .3s,color .3s;animation:fadeUp .5s ease both}
+.act-btn:hover,.act-btn:active{background:rgba(201,168,76,.13);border-color:rgba(201,168,76,.5);color:var(--gold)}
+
+/* S4 */
+#s4{z-index:7;background:var(--dark)}
+.i-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.back-btn{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .2s,transform .2s;border-radius:2px}
+.back-btn:hover,.back-btn:active{background:rgba(201,168,76,.12);transform:translateX(-2px)}
+.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dishes-list{padding:14px 12px 50px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.dish-card{display:grid;grid-template-columns:92px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s,transform .25s;animation:fadeUp .4s ease both;border-radius:2px}
+.dish-card:hover,.dish-card:active{border-color:rgba(201,168,76,.42);transform:translateX(3px)}
+.dish-img{width:92px;height:92px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1810,#0f0b06);overflow:hidden;flex-shrink:0;position:relative}
+.dish-img img{width:100%;height:100%;object-fit:cover;display:block}
+.dish-img-fallback{font-size:32px}
+.dish-shimmer{background:linear-gradient(90deg,#1a1510 0%,#2a2018 50%,#1a1510 100%);background-size:200% 100%;animation:shimmer 1.6s infinite}
+.dish-info{padding:11px 13px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
+.dish-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--text);line-height:1.3}
+.dish-desc{font-size:11px;font-weight:300;color:var(--text-dim);line-height:1.6;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.dish-price{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-top:8px;letter-spacing:.05em}
+</style>
+</head>
+<body>
+
+<!-- S1 WELCOME -->
+<div class="screen" id="s1">
+  <div class="ambient"></div>
+  <div class="s1-lang">
+    <div class="lang-sw">
+      <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
+      <div class="lang-sep"></div>
+      <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+    </div>
+  </div>
+  <div class="s1-inner">
+    <div class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 56 56" fill="none">
+        <path d="M28 4 L32 18 L46 14 L36 24 L50 28 L36 32 L46 42 L32 38 L28 52 L24 38 L10 42 L20 32 L6 28 L20 24 L10 14 L24 18 Z" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
+        <path d="M28 10 L30.5 20 L40 17 L33.5 23.5 L44 28 L33.5 32.5 L40 39 L30.5 36 L28 46 L25.5 36 L16 39 L22.5 32.5 L12 28 L22.5 23.5 L16 17 L25.5 20 Z" stroke="#C9A84C" stroke-width="0.5" fill="rgba(201,168,76,0.06)"/>
+        <circle cx="28" cy="28" r="4" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.12)"/>
+      </svg>
+      <div class="logo-name">ANDALUS</div>
+      <div class="logo-sub">Restaurant</div>
+    </div>
+    <div class="divider"></div>
+    <div class="w-title" data-i18n="welcome_title">ДОБРО ПОЖАЛОВАТЬ</div>
+    <div class="w-sub" data-i18n="welcome_sub">Откройте мир восточных вкусов</div>
+    <div class="orn-line"><div class="ln"></div><div class="di"></div><div class="ln"></div></div>
+    <button class="enter-btn" onclick="goTo('s1','s2','up')" data-i18n="enter_btn">ВОЙТИ В МЕНЮ</button>
+    <div class="insta-tag">@andalus_restaurant</div>
+  </div>
+</div>
+
+<!-- S2 HOSTESS -->
+<div class="screen hidden" id="s2">
+  <div class="g-bg"></div>
+  <div class="g-content">
+    <div class="g-header">
+      <div class="g-logo">
+        <svg class="logo-svg-md" viewBox="0 0 56 56" fill="none">
+          <path d="M28 4 L32 18 L46 14 L36 24 L50 28 L36 32 L46 42 L32 38 L28 52 L24 38 L10 42 L20 32 L6 28 L20 24 L10 14 L24 18 Z" stroke="#C9A84C" stroke-width="1.2" fill="none"/>
+          <circle cx="28" cy="28" r="4" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.12)"/>
+        </svg>
+        <span>ANDALUS</span>
+      </div>
+      <div class="lang-sw">
+        <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
+        <div class="lang-sep"></div>
+        <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+      </div>
+    </div>
+    <div class="h-area">
+      <div class="h-sil">
+        <div class="arch"></div>
+        <div class="h-img" id="hostess-frame">
+          <div class="light-orb lo1"></div>
+          <div class="light-orb lo2"></div>
+          <div class="light-orb lo3"></div>
+          <img class="hostess-actual" src="hostess.jpg" alt="Hostess" style="width:100%; height:100%; object-fit:cover;">
+            <span style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#8a6f30;letter-spacing:.08em;font-style:italic" data-i18n="hostess_placeholder">Фото хостес</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="g-bar" onclick="clearTimeout(greetTimer);goTo('s2','s3','up')">
+      <span class="g-text" data-i18n="greeting_text">Добро пожаловать в Andalus</span>
+      <span class="audio-ic">♪</span>
+    </div>
+  </div>
+</div>
+
+<!-- S3 MENU -->
+<div class="screen hidden" id="s3">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(140,90,10,.13) 0%,transparent 70%)"></div>
+  <div class="m-header">
+    <div class="m-logo">
+      <svg class="logo-svg-sm" viewBox="0 0 56 56" fill="none">
+        <path d="M28 4 L32 18 L46 14 L36 24 L50 28 L36 32 L46 42 L32 38 L28 52 L24 38 L10 42 L20 32 L6 28 L20 24 L10 14 L24 18 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
+        <circle cx="28" cy="28" r="4" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.12)"/>
+      </svg>
+      <span>ANDALUS</span>
+    </div>
+    <div class="lang-sw">
+      <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
+      <div class="lang-sep"></div>
+      <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+    </div>
+  </div>
+  <div class="scroll-area" id="menu-scroll">
+    <div class="m-title-sec">
+      <div class="m-title" data-i18n="menu_title">МЕНЮ</div>
+      <div class="m-orn"><div class="ln"></div><div class="di"></div><div class="ln"></div></div>
+    </div>
+    <div class="cats-grid" id="cats-grid"></div>
+    <div class="m-actions">
+      <button class="act-btn" style="animation-delay:.5s" onclick="callWaiter()">
+        <span>🔔</span><span data-i18n="call_waiter">ОФИЦИАНТА</span>
+      </button>
+      <button class="act-btn" style="animation-delay:.6s">
+        <span>🛍</span><span data-i18n="your_order">МОЙ ЗАКАЗ</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- S4 ITEMS -->
+<div class="screen hidden" id="s4">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 40% at 50% 100%,rgba(140,90,10,.1) 0%,transparent 70%)"></div>
+  <div class="i-header">
+    <button class="back-btn" onclick="goTo('s4','s3','down')">←</button>
+    <div class="i-title" id="i-title"></div>
+    <div class="lang-sw">
+      <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
+      <div class="lang-sep"></div>
+      <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+    </div>
+  </div>
+  <div class="scroll-area">
+    <div class="dishes-list" id="dishes-list"></div>
+  </div>
+</div>
+
+<script>
+const IMGS={
+  cats:{
+    cold:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=75',
+    hot:'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=600&q=75',
+    soups:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=75',
+    mains:'https://images.unsplash.com/photo-1574484284002-952d92456975?w=600&q=75',
+    drinks:'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=75'
+  },
+  dishes:{
+    cold:[
+      'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=70',
+      'https://images.unsplash.com/photo-1607532941433-304659e8198a?w=200&q=70',
+      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&q=70',
+      'https://images.unsplash.com/photo-1544025162-d76594e70e36?w=200&q=70',
+      'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&q=70'
+    ],
+    hot:[
+      'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=200&q=70',
+      'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=200&q=70',
+      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70',
+      'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=70'
+    ],
+    soups:[
+      'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=70',
+      'https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?w=200&q=70',
+      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70',
+      'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=200&q=70'
+    ],
+    mains:[
+      'https://images.unsplash.com/photo-1574484284002-952d92456975?w=200&q=70',
+      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&q=70',
+      'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=70',
+      'https://images.unsplash.com/photo-1544025162-d76594e70e36?w=200&q=70',
+      'https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=200&q=70'
+    ],
+    drinks:[
+      'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200&q=70',
+      'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200&q=70',
+      'https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=200&q=70',
+      'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=200&q=70',
+      'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&q=70'
+    ]
+  }
+};
+
+const T={
+  ru:{
+    welcome_title:'ДОБРО ПОЖАЛОВАТЬ',
+    welcome_sub:'Откройте мир восточных вкусов',
+    enter_btn:'ВОЙТИ В МЕНЮ',
+    hostess_placeholder:'Фото хостес',
+    greeting_text:'Добро пожаловать в Andalus',
+    menu_title:'МЕНЮ',
+    call_waiter:'ОФИЦИАНТА',
+    your_order:'МОЙ ЗАКАЗ',
+    cats:{cold:'ХОЛОДНЫЕ ЗАКУСКИ',hot:'ГОРЯЧИЕ ЗАКУСКИ',soups:'СУПЫ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
+    dishes:{
+      cold:[
+        {name:'Ачик-чучук',desc:'Свежие томаты, лук, зелёный перец, кинза и базилик',price:'350 сом'},
+        {name:'Шакароб',desc:'Помидоры с луком, базилик, оливковое масло',price:'320 сом'},
+        {name:'Салат из свежих овощей',desc:'Огурцы, помидоры, перец, зелень, домашняя сметана',price:'380 сом'},
+        {name:'Мясная нарезка',desc:'Ассорти из вяленого мяса, бастурмы и закусок',price:'950 сом'},
+        {name:'Овощная нарезка',desc:'Свежие и маринованные овощи с пряной зеленью',price:'480 сом'}
+      ],
+      hot:[
+        {name:'Самса',desc:'Слоёное тесто, рубленое мясо с луком. Свежая из тандыра',price:'180 сом'},
+        {name:'Манты',desc:'Паровые пельмени с сочным мясом и тыквой',price:'520 сом'},
+        {name:'Чучвара',desc:'Маленькие пельмени в ароматном бульоне с зеленью',price:'480 сом'},
+        {name:'Люля-кебаб',desc:'Рубленое мясо на шпажке, свежая зелень, лаваш',price:'620 сом'}
+      ],
+      soups:[
+        {name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:'450 сом'},
+        {name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:'420 сом'},
+        {name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:'480 сом'},
+        {name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:'520 сом'}
+      ],
+      mains:[
+        {name:'Плов по-фергански',desc:'Рассыпчатый рис, баранина, морковь, лук, восточные специи',price:'580 сом'},
+        {name:'Димлама',desc:'Тушёное мясо с сезонными овощами в казане',price:'620 сом'},
+        {name:'Шашлык из баранины',desc:'Отборная баранина, маринованная и приготовленная на мангале',price:'750 сом'},
+        {name:'Казан-кебаб',desc:'Нежное мясо с картофелем и луком в казане',price:'680 сом'},
+        {name:'Думляма',desc:'Слоёное рагу из мяса и сезонных овощей с пряностями',price:'650 сом'}
+      ],
+      drinks:[
+        {name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:'150 сом'},
+        {name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:'180 сом'},
+        {name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:'320 сом'},
+        {name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:'280 сом'},
+        {name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:'180 сом'}
+      ]
+    }
+  },
+  ky:{
+    welcome_title:'КОШ КЕЛИҢИЗДЕР',
+    welcome_sub:'Чыгыш даамдарынын дүйнөсүн ачыңыз',
+    enter_btn:'МЕНЮГА КИРҮҮ',
+    hostess_placeholder:'Хостестин сүрөтү',
+    greeting_text:'Andalusка кош келиңиз',
+    menu_title:'МЕНЮ',
+    call_waiter:'ОФИЦИАНТ',
+    your_order:'БУЙРУТМА',
+    cats:{cold:'СУУК ТАМАКТАР',hot:'ЫСЫК ТАМАКТАР',soups:'ШОРПОЛОР',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
+    dishes:{
+      cold:[
+        {name:'Ачык-чучук',desc:'Таза помидор, пияз, жашыл калемпир, кинза жана базилик',price:'350 сом'},
+        {name:'Шакароб',desc:'Помидор жана пияз, базилик, зайтун майы',price:'320 сом'},
+        {name:'Жаш жашылча салат',desc:'Кыяр, помидор, калемпир, жашылча, үй каймагы',price:'380 сом'},
+        {name:'Эт кесилиши',desc:'Ар түрдүү кептирилген эт жана тамак-аш ассортименти',price:'950 сом'},
+        {name:'Жашылча кесилиши',desc:'Таза жана маринад жашылчалар жыпар жыт менен',price:'480 сом'}
+      ],
+      hot:[
+        {name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:'180 сом'},
+        {name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:'520 сом'},
+        {name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:'480 сом'},
+        {name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:'620 сом'}
+      ],
+      soups:[
+        {name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:'450 сом'},
+        {name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:'420 сом'},
+        {name:'Нарын',desc:'Уй эти менен үй эриштеси',price:'480 сом'},
+        {name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:'520 сом'}
+      ],
+      mains:[
+        {name:'Фергана палоосу',desc:'Рассыпчатый күрүч, козунун эти, сабиз, пияз, жыпар жыт',price:'580 сом'},
+        {name:'Димлама',desc:'Казанда мезгил жашылча менен тушеное эт',price:'620 сом'},
+        {name:'Козу кебаб',desc:'Тандалган козунун эти мангалда бышырылган',price:'750 сом'},
+        {name:'Казан-кебаб',desc:'Картошка жана пияз менен казанда жумшак эт',price:'680 сом'},
+        {name:'Думляма',desc:'Эт жана мезгил жашылча менен катмарлуу рагу',price:'650 сом'}
+      ],
+      drinks:[
+        {name:'Жашыл чай',desc:'Жаңы демделген, жалбыз менен же таза',price:'150 сом'},
+        {name:'Кок-чай сүт менен',desc:'Сүт жана туз менен көчмөн чайы',price:'180 сом'},
+        {name:'Таза сок',desc:'Апельсин, алма же анар — тандооңуз боюнча',price:'320 сом'},
+        {name:'Андалус лимонады',desc:'Базилик жана кулпунай менен авторлук лимонад',price:'280 сом'},
+        {name:'Айран',desc:'Салттуу сергиткич кымыздан жасалган напиток',price:'180 сом'}
+      ]
+    }
+  }
+};
+
+const CAT_IDS=['cold','hot','soups','mains','drinks'];
+const EMOJIS={cold:'🥗',hot:'🥟',soups:'🍲',mains:'🍛',drinks:'🍵'};
+let lang='ru',curCat=null,greetTimer=null;
+
+function setLang(l,btn){
+  lang=l;
+  const label=btn.textContent.trim();
+  document.querySelectorAll('.lang-opt').forEach(b=>b.classList.toggle('active',b.textContent.trim()===label));
+  applyI18n();buildCats();
+  if(curCat){renderDishes(curCat);updateItemsTitle()}
+}
+
+function applyI18n(){
+  const t=T[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{if(t[el.dataset.i18n])el.textContent=t[el.dataset.i18n]});
+}
+
+function updateItemsTitle(){
+  document.getElementById('i-title').textContent=T[lang].cats[curCat];
+}
+
+function goTo(fromId,toId,dir){
+  const from=document.getElementById(fromId);
+  const to=document.getElementById(toId);
+  to.classList.remove('hidden');to.style.opacity='0';to.style.pointerEvents='none';
+  from.classList.add(dir==='up'?'do-exit-up':'do-exit-down');
+  setTimeout(()=>{
+    from.classList.add('hidden');from.classList.remove('do-exit-up','do-exit-down');
+    from.style.opacity='';to.style.opacity='';to.style.pointerEvents='';
+    to.classList.add(dir==='up'?'do-enter-up':'do-enter-down');
+    to.scrollTop=0;
+    const sc=to.querySelector('.scroll-area');if(sc)sc.scrollTop=0;
+    setTimeout(()=>to.classList.remove('do-enter-up','do-enter-down'),700);
+    if(toId==='s2'){clearTimeout(greetTimer);greetTimer=setTimeout(()=>goTo('s2','s3','up'),4000)}
+    if(toId==='s3')buildCats();
+  },360);
+}
+
+function buildCats(){
+  const grid=document.getElementById('cats-grid');
+  grid.innerHTML='';
+  const t=T[lang];
+  CAT_IDS.forEach((id,i)=>{
+    const c=document.createElement('div');
+    c.className='cat-card';
+    c.style.animationDelay=(0.05+i*0.09)+'s';
+    c.onclick=()=>openCat(id);
+    c.innerHTML=`<img class="cat-bg-img" src="${IMGS.cats[id]}" alt="" loading="lazy" onerror="this.style.display='none'">
+      <div class="cat-ov"><div class="cat-name">${t.cats[id]}</div><div class="cat-acc"></div></div>`;
+    grid.appendChild(c);
+  });
+}
+
+function openCat(id){
+  curCat=id;renderDishes(id);updateItemsTitle();goTo('s3','s4','up');
+}
+
+function renderDishes(id){
+  const dishes=T[lang].dishes[id]||[];
+  const imgs=IMGS.dishes[id]||[];
+  const list=document.getElementById('dishes-list');
+  list.innerHTML='';
+  dishes.forEach((d,i)=>{
+    const c=document.createElement('div');
+    c.className='dish-card';
+    c.style.animationDelay=(i*0.07)+'s';
+    const imgUrl=imgs[i];
+    const emoji=EMOJIS[id]||'🍽';
+    c.innerHTML=`<div class="dish-img dish-shimmer">
+        <img src="${imgUrl}" alt="${d.name}" loading="lazy"
+          onload="this.parentElement.classList.remove('dish-shimmer')"
+          onerror="this.parentElement.classList.remove('dish-shimmer');this.style.display='none';this.parentElement.innerHTML='<div class=dish-img-fallback>${emoji}</div>'">
+      </div>
+      <div class="dish-info">
+        <div>
+          <div class="dish-name">${d.name}</div>
+          <div class="dish-desc">${d.desc}</div>
+        </div>
+        <div class="dish-price">${d.price}</div>
+      </div>`;
+    list.appendChild(c);
+  });
+}
+
+function callWaiter(){
+  if(navigator.vibrate)navigator.vibrate([100,50,100]);
+  const msg=lang==='ru'?'Официант вызван!\nОжидайте, пожалуйста.':'Официант чакырылды!\nКүтүңүз, сураныч.';
+  alert(msg);
+}
+
+buildCats();
+</script>
+</body>
+</html>
