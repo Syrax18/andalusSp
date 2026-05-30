@@ -26,6 +26,8 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 @keyframes flicker{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.65;transform:scale(0.93)}}
 @keyframes hostessReveal{from{opacity:0;transform:translateY(50px) scale(0.95);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
 @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+@keyframes cartBounce{0%,100%{transform:scale(1)}40%{transform:scale(1.45)}70%{transform:scale(0.9)}}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-48px)}}
 
 .scroll-area{flex:1;overflow-y:auto;width:100%;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:2px}
@@ -36,7 +38,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .lang-opt.active{background:rgba(201,168,76,0.18);color:var(--gold)}
 .lang-sep{width:1px;height:18px;background:rgba(201,168,76,0.22)}
 
-/* S1 */
+/* ══ S1 ══ */
 #s1{background:var(--black);text-align:center;z-index:10}
 .s1-inner{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2;padding:0 32px;width:100%}
 .logo-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeUp 1s ease both 0.2s}
@@ -58,7 +60,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .insta-tag{font-size:11px;color:var(--gold-dim);letter-spacing:.14em;font-weight:200;animation:fadeUp 1s ease both 1s;z-index:2;margin-top:22px}
 .s1-lang{position:absolute;top:20px;right:20px;z-index:10;animation:fadeUp .6s ease both 0.3s}
 
-/* S2 */
+/* ══ S2 ══ */
 #s2{z-index:9;background:var(--black)}
 .g-bg{position:absolute;inset:0;background:radial-gradient(ellipse 75% 65% at 50% 85%,rgba(140,90,10,.28) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 25% 20%,rgba(180,110,10,.13) 0%,transparent 60%)}
 .g-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;height:100%}
@@ -74,22 +76,21 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .lo1{width:130px;height:130px;background:rgba(255,160,30,.16);top:8%;left:8%}
 .lo2{width:90px;height:90px;background:rgba(255,140,20,.13);top:18%;right:12%;animation-delay:.8s}
 .lo3{width:110px;height:110px;background:rgba(200,130,10,.11);bottom:28%;left:18%;animation-delay:1.6s}
-.hostess-placeholder{display:flex;flex-direction:column;align-items:center;gap:12px;opacity:.3;z-index:2;position:relative}
 .hostess-actual{width:100%;height:100%;object-fit:cover;border-radius:160px 160px 0 0;position:absolute;inset:0}
 .g-bar{width:calc(100% - 40px);max-width:360px;margin:0 auto 24px;padding:16px 22px;background:rgba(12,9,4,.88);border:1px solid rgba(201,168,76,.28);display:flex;align-items:center;justify-content:space-between;cursor:pointer;animation:fadeUp .9s ease both 0.5s;backdrop-filter:blur(12px);transition:border-color .3s;flex-shrink:0}
 .g-bar:hover{border-color:rgba(201,168,76,.55)}
 .g-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--text);font-weight:300;line-height:1.3}
 .audio-ic{color:var(--gold);font-size:20px;animation:pulse 2.5s ease infinite;flex-shrink:0;margin-left:14px}
 
-/* S3 */
+/* ══ S3 MENU ══ */
 #s3{z-index:8;background:var(--dark)}
 .m-header{width:100%;padding:16px 20px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
 .m-logo{display:flex;align-items:center;gap:10px}
-.m-logo span,.logo-svg-sm,.logo-svg-md{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.22em;color:var(--gold)}
+.m-logo span{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.22em;color:var(--gold)}
 .logo-svg-sm{width:22px;height:22px}
 .logo-svg-md{width:26px;height:26px}
-.m-title-sec{text-align:center;padding:26px 24px 14px;animation:fadeUp .6s ease both}
-.m-title{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,34px);letter-spacing:.38em;color:var(--text);font-weight:400}
+.m-title-sec{text-align:center;padding:26px 24px 14px;animation:fadeUp .6s ease both;width:100%}
+.m-title{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,34px);letter-spacing:.38em;text-indent:.38em;color:var(--text);font-weight:400;display:block;text-align:center;width:100%}
 .m-orn{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:12px}
 .m-orn .ln{flex:1;max-width:80px;height:1px}
 .m-orn .ln:first-child{background:linear-gradient(90deg,transparent,var(--gold))}
@@ -105,19 +106,24 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .cat-name{font-family:'Cinzel',serif;font-size:clamp(10px,2.5vw,13px);letter-spacing:.13em;color:#fff;text-align:center;font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.95);line-height:1.4}
 .cat-acc{width:22px;height:1px;background:var(--gold);margin-top:6px;transition:width .3s}
 .cat-card:hover .cat-acc,.cat-card:active .cat-acc{width:38px}
+
+/* bottom action buttons */
 .m-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 12px 32px;width:100%;max-width:500px;margin:0 auto}
-.act-btn{padding:15px 8px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.22);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .3s,border-color .3s,color .3s;animation:fadeUp .5s ease both}
+.act-btn{padding:15px 8px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.22);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .3s,border-color .3s,color .3s;animation:fadeUp .5s ease both;position:relative}
 .act-btn:hover,.act-btn:active{background:rgba(201,168,76,.13);border-color:rgba(201,168,76,.5);color:var(--gold)}
 
-/* S4 */
+/* cart badge on button */
+.cart-badge{display:none;position:absolute;top:-8px;right:-8px;background:var(--gold);color:var(--black);border-radius:50%;width:20px;height:20px;font-size:10px;font-family:'Cinzel',serif;font-weight:700;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.cart-badge.show{display:flex;animation:cartBounce .35s ease}
+
+/* ══ S4 ITEMS ══ */
 #s4{z-index:7;background:var(--dark)}
 .i-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
 .back-btn{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .2s,transform .2s;border-radius:2px}
 .back-btn:hover,.back-btn:active{background:rgba(201,168,76,.12);transform:translateX(-2px)}
 .i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dishes-list{padding:14px 12px 50px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
-.dish-card{display:grid;grid-template-columns:92px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s,transform .25s;animation:fadeUp .4s ease both;border-radius:2px}
-.dish-card:hover,.dish-card:active{border-color:rgba(201,168,76,.42);transform:translateX(3px)}
+.dishes-list{padding:14px 12px 80px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.dish-card{display:grid;grid-template-columns:92px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s;animation:fadeUp .4s ease both;border-radius:2px}
 .dish-img{width:92px;height:92px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1810,#0f0b06);overflow:hidden;flex-shrink:0;position:relative}
 .dish-img img{width:100%;height:100%;object-fit:cover;display:block}
 .dish-img-fallback{font-size:32px}
@@ -125,7 +131,62 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .dish-info{padding:11px 13px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
 .dish-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--text);line-height:1.3}
 .dish-desc{font-size:11px;font-weight:300;color:var(--text-dim);line-height:1.6;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.dish-price{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);margin-top:8px;letter-spacing:.05em}
+.dish-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px}
+.dish-price{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);letter-spacing:.05em;flex-shrink:0}
+
+/* qty controls on dish */
+.qty-ctrl{display:flex;align-items:center}
+.qty-btn{width:28px;height:28px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.32);color:var(--gold);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1;font-family:'Jost',sans-serif}
+.qty-btn:hover,.qty-btn:active{background:rgba(201,168,76,.28)}
+.qty-num{width:32px;height:28px;background:rgba(201,168,76,.06);border-top:1px solid rgba(201,168,76,.28);border-bottom:1px solid rgba(201,168,76,.28);color:var(--text);font-family:'Cinzel',serif;font-size:12px;display:flex;align-items:center;justify-content:center}
+.add-btn{padding:6px 14px;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;transition:background .22s,color .22s;white-space:nowrap}
+.add-btn:hover,.add-btn:active{background:var(--gold);color:var(--black)}
+
+/* float +1 animation */
+.float-label{position:fixed;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);pointer-events:none;z-index:9999;animation:floatUp .7s ease forwards}
+
+/* ══ S5 CART ══ */
+#s5{z-index:6;background:var(--dark)}
+.cart-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.cart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;color:var(--gold);font-weight:400;flex:1;text-align:center}
+.cart-list{padding:14px 12px 0;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+.cart-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--dark2);border:1px solid rgba(201,168,76,.15);border-radius:2px;animation:fadeUp .3s ease both}
+.ci-img{width:44px;height:44px;border-radius:2px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#1e1810,#0f0b06)}
+.ci-img img{width:100%;height:100%;object-fit:cover;display:block}
+.ci-emoji{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:linear-gradient(135deg,#1e1810,#0f0b06);border-radius:2px}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-price{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-top:3px}
+.ci-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.ci-del{background:none;border:none;color:rgba(201,168,76,.35);font-size:18px;cursor:pointer;padding:4px;transition:color .2s;line-height:1}
+.ci-del:hover{color:#e05555}
+.cart-empty{text-align:center;padding:64px 24px;color:var(--text-dim);font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;opacity:.7}
+.cart-footer{width:100%;max-width:500px;margin:0 auto;padding:16px 12px 36px}
+.cart-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.25),transparent);margin-bottom:16px}
+.cart-total-row{display:flex;justify-content:space-between;align-items:baseline;padding:0 2px}
+.cart-total-lbl{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;color:var(--text-dim)}
+.cart-total-val{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);letter-spacing:.04em}
+.cart-note{font-size:11px;color:var(--text-dim);text-align:center;margin-top:10px;font-weight:300;line-height:1.6;font-style:italic;font-family:'Cormorant Garamond',serif}
+
+/* ══ S6 CONTACTS ══ */
+#s6{z-index:5;background:var(--dark)}
+.contacts-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.contacts-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;color:var(--gold);font-weight:400;flex:1;text-align:center}
+.contacts-body{padding:32px 20px 48px;width:100%;max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.contact-card{display:flex;align-items:center;gap:18px;padding:20px 22px;background:var(--dark2);border:1px solid rgba(201,168,76,.18);border-radius:2px;cursor:pointer;transition:border-color .3s,background .3s;text-decoration:none;animation:fadeUp .45s ease both}
+.contact-card:hover,.contact-card:active{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.06)}
+.contact-icon{font-size:28px;flex-shrink:0;width:44px;text-align:center}
+.contact-info{flex:1}
+.contact-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--text-dim)}
+.contact-value{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--text);margin-top:4px;font-weight:400}
+.contact-arrow{color:var(--gold-dim);font-size:18px;flex-shrink:0}
+.contact-divider{display:flex;align-items:center;gap:12px;padding:4px 0}
+.contact-divider .dl{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.18))}
+.contact-divider .dl:last-child{background:linear-gradient(90deg,rgba(201,168,76,.18),transparent)}
+.contact-divider span{font-size:10px;color:var(--text-dim);letter-spacing:.12em;font-family:'Cinzel',serif}
+.restaurant-info{text-align:center;padding:8px 16px 0;animation:fadeUp .5s ease both .3s}
+.restaurant-info p{font-size:12px;color:var(--text-dim);line-height:1.9;font-weight:300}
+.restaurant-info .info-gold{color:var(--gold-dim);font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic}
 </style>
 </head>
 <body>
@@ -180,13 +241,11 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
     <div class="h-area">
       <div class="h-sil">
         <div class="arch"></div>
-        <div class="h-img" id="hostess-frame">
+        <div class="h-img">
           <div class="light-orb lo1"></div>
           <div class="light-orb lo2"></div>
           <div class="light-orb lo3"></div>
-          <img class="hostess-actual" src="hostess.jpg" alt="Hostess" style="width:100%; height:100%; object-fit:cover;">
-            <span style="font-family:'Cormorant Garamond',serif;font-size:13px;color:#8a6f30;letter-spacing:.08em;font-style:italic" data-i18n="hostess_placeholder">Фото хостес</span>
-          </div>
+          <img class="hostess-actual" src="hostess.jpg" alt="Hostess" onerror="this.style.display='none'">
         </div>
       </div>
     </div>
@@ -221,11 +280,12 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
     </div>
     <div class="cats-grid" id="cats-grid"></div>
     <div class="m-actions">
-      <button class="act-btn" style="animation-delay:.5s" onclick="callWaiter()">
-        <span>🔔</span><span data-i18n="call_waiter">ОФИЦИАНТА</span>
+      <button class="act-btn" style="animation-delay:.5s" onclick="goTo('s3','s6','up')">
+        <span>📞</span><span data-i18n="contacts_btn">КОНТАКТЫ</span>
       </button>
-      <button class="act-btn" style="animation-delay:.6s">
+      <button class="act-btn" id="cart-act-btn" style="animation-delay:.6s" onclick="goTo('s3','s5','up')">
         <span>🛍</span><span data-i18n="your_order">МОЙ ЗАКАЗ</span>
+        <span class="cart-badge" id="cart-badge">0</span>
       </button>
     </div>
   </div>
@@ -248,6 +308,67 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   </div>
 </div>
 
+<!-- S5 CART -->
+<div class="screen hidden" id="s5">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(140,90,10,.1) 0%,transparent 70%)"></div>
+  <div class="cart-header">
+    <button class="back-btn" onclick="goTo('s5','s3','down')">←</button>
+    <div class="cart-title" data-i18n="your_order">МОЙ ЗАКАЗ</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-area">
+    <div class="cart-list" id="cart-list"></div>
+    <div id="cart-footer"></div>
+  </div>
+</div>
+
+<!-- S6 CONTACTS -->
+<div class="screen hidden" id="s6">
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(140,90,10,.1) 0%,transparent 70%)"></div>
+  <div class="contacts-header">
+    <button class="back-btn" onclick="goTo('s6','s3','down')">←</button>
+    <div class="contacts-title" data-i18n="contacts_title">КОНТАКТЫ</div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="scroll-area">
+    <div class="contacts-body">
+      <a class="contact-card" href="tel:+996700000000" style="animation-delay:.05s">
+        <div class="contact-icon">📞</div>
+        <div class="contact-info">
+          <div class="contact-label" data-i18n="phone_label">ТЕЛЕФОН</div>
+          <div class="contact-value">+996 700 000 000</div>
+        </div>
+        <div class="contact-arrow">›</div>
+      </a>
+      <a class="contact-card" href="https://instagram.com/andalus.kg" target="_blank" style="animation-delay:.12s">
+        <div class="contact-icon">📸</div>
+        <div class="contact-info">
+          <div class="contact-label">INSTAGRAM</div>
+          <div class="contact-value">@andalus.kg</div>
+        </div>
+        <div class="contact-arrow">›</div>
+      </a>
+      <div class="contact-divider">
+        <div class="dl"></div>
+        <span data-i18n="or_find_us">МЫ НАХОДИМСЯ</span>
+        <div class="dl"></div>
+      </div>
+      <a class="contact-card" href="https://maps.google.com" target="_blank" style="animation-delay:.2s">
+        <div class="contact-icon">📍</div>
+        <div class="contact-info">
+          <div class="contact-label" data-i18n="address_label">АДРЕС</div>
+          <div class="contact-value" data-i18n="address_val">г. Манас проспект Тумонбая Байзакова 141</div>
+        </div>
+        <div class="contact-arrow">›</div>
+      </a>
+      <div class="restaurant-info">
+        <p class="info-gold" data-i18n="work_hours_val">Пн–Вс: 11:00 — 23:00</p>
+        <p data-i18n="work_hours_label">Ждём вас каждый день</p>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 const IMGS={
   cats:{
@@ -258,132 +379,104 @@ const IMGS={
     drinks:'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=75'
   },
   dishes:{
-    cold:[
-      'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=70',
-      'https://images.unsplash.com/photo-1607532941433-304659e8198a?w=200&q=70',
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&q=70',
-      'https://images.unsplash.com/photo-1544025162-d76594e70e36?w=200&q=70',
-      'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&q=70'
-    ],
-    hot:[
-      'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=200&q=70',
-      'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=200&q=70',
-      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70',
-      'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=70'
-    ],
-    soups:[
-      'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=70',
-      'https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?w=200&q=70',
-      'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70',
-      'https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=200&q=70'
-    ],
-    mains:[
-      'https://images.unsplash.com/photo-1574484284002-952d92456975?w=200&q=70',
-      'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&q=70',
-      'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=70',
-      'https://images.unsplash.com/photo-1544025162-d76594e70e36?w=200&q=70',
-      'https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=200&q=70'
-    ],
-    drinks:[
-      'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200&q=70',
-      'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200&q=70',
-      'https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=200&q=70',
-      'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=200&q=70',
-      'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&q=70'
-    ]
+    cold:['https://images.unsplash.com/photo-1540420773420-3366772f4999?w=200&q=70','https://images.unsplash.com/photo-1607532941433-304659e8198a?w=200&q=70','https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&q=70','https://images.unsplash.com/photo-1544025162-d76594e70e36?w=200&q=70','https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=200&q=70'],
+    hot:['https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=200&q=70','https://images.unsplash.com/photo-1563245372-f21724e3856d?w=200&q=70','https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70','https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=70'],
+    soups:['https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=70','https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?w=200&q=70','https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70','https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=200&q=70'],
+    mains:['https://images.unsplash.com/photo-1574484284002-952d92456975?w=200&q=70','https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=200&q=70','https://images.unsplash.com/photo-1529042410759-befb1204b468?w=200&q=70','https://images.unsplash.com/photo-1544025162-d76594e70e36?w=200&q=70','https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?w=200&q=70'],
+    drinks:['https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200&q=70','https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200&q=70','https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=200&q=70','https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=200&q=70','https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&q=70']
   }
 };
 
 const T={
   ru:{
-    welcome_title:'ДОБРО ПОЖАЛОВАТЬ',
-    welcome_sub:'Откройте мир восточных вкусов',
+    welcome_title:'ДОБРО ПОЖАЛОВАТЬ',welcome_sub:'Откройте мир восточных вкусов',
     enter_btn:'ВОЙТИ В МЕНЮ',
-    hostess_placeholder:'Фото хостес',
-    greeting_text:'Добро пожаловать в Andalus',
-    menu_title:'МЕНЮ',
-    call_waiter:'ОФИЦИАНТА',
-    your_order:'МОЙ ЗАКАЗ',
+    greeting_text:'Добро пожаловать в Andalus',menu_title:'МЕНЮ',
+    contacts_btn:'КОНТАКТЫ',your_order:'МОЙ ЗАКАЗ',contacts_title:'КОНТАКТЫ',
+    phone_label:'ТЕЛЕФОН',or_find_us:'МЫ НАХОДИМСЯ',address_label:'АДРЕС',
+    address_val:'г. Манас проспект Тумонбая Байзакова 141',work_hours_label:'Ждём вас каждый день',
+    work_hours_val:'Пн–Вс: 11:00 — 23:00',
+    total:'ИТОГО',cart_note:'Покажите этот экран официанту',cart_empty:'Корзина пуста',
     cats:{cold:'ХОЛОДНЫЕ ЗАКУСКИ',hot:'ГОРЯЧИЕ ЗАКУСКИ',soups:'СУПЫ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
     dishes:{
       cold:[
-        {name:'Ачик-чучук',desc:'Свежие томаты, лук, зелёный перец, кинза и базилик',price:'350 сом'},
-        {name:'Шакароб',desc:'Помидоры с луком, базилик, оливковое масло',price:'320 сом'},
-        {name:'Салат из свежих овощей',desc:'Огурцы, помидоры, перец, зелень, домашняя сметана',price:'380 сом'},
-        {name:'Мясная нарезка',desc:'Ассорти из вяленого мяса, бастурмы и закусок',price:'950 сом'},
-        {name:'Овощная нарезка',desc:'Свежие и маринованные овощи с пряной зеленью',price:'480 сом'}
+        {name:'Ачик-чучук',desc:'Свежие томаты, лук, зелёный перец, кинза и базилик',price:350},
+        {name:'Шакароб',desc:'Помидоры с луком, базилик, оливковое масло',price:320},
+        {name:'Салат из свежих овощей',desc:'Огурцы, помидоры, перец, зелень, домашняя сметана',price:380},
+        {name:'Мясная нарезка',desc:'Ассорти из вяленого мяса, бастурмы и закусок',price:950},
+        {name:'Овощная нарезка',desc:'Свежие и маринованные овощи с пряной зеленью',price:480}
       ],
       hot:[
-        {name:'Самса',desc:'Слоёное тесто, рубленое мясо с луком. Свежая из тандыра',price:'180 сом'},
-        {name:'Манты',desc:'Паровые пельмени с сочным мясом и тыквой',price:'520 сом'},
-        {name:'Чучвара',desc:'Маленькие пельмени в ароматном бульоне с зеленью',price:'480 сом'},
-        {name:'Люля-кебаб',desc:'Рубленое мясо на шпажке, свежая зелень, лаваш',price:'620 сом'}
+        {name:'Самса',desc:'Слоёное тесто, рубленое мясо с луком. Свежая из тандыра',price:180},
+        {name:'Манты',desc:'Паровые пельмени с сочным мясом и тыквой',price:520},
+        {name:'Чучвара',desc:'Маленькие пельмени в ароматном бульоне с зеленью',price:480},
+        {name:'Люля-кебаб',desc:'Рубленое мясо на шпажке, свежая зелень, лаваш',price:620}
       ],
       soups:[
-        {name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:'450 сом'},
-        {name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:'420 сом'},
-        {name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:'480 сом'},
-        {name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:'520 сом'}
+        {name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},
+        {name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},
+        {name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},
+        {name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}
       ],
       mains:[
-        {name:'Плов по-фергански',desc:'Рассыпчатый рис, баранина, морковь, лук, восточные специи',price:'580 сом'},
-        {name:'Димлама',desc:'Тушёное мясо с сезонными овощами в казане',price:'620 сом'},
-        {name:'Шашлык из баранины',desc:'Отборная баранина, маринованная и приготовленная на мангале',price:'750 сом'},
-        {name:'Казан-кебаб',desc:'Нежное мясо с картофелем и луком в казане',price:'680 сом'},
-        {name:'Думляма',desc:'Слоёное рагу из мяса и сезонных овощей с пряностями',price:'650 сом'}
+        {name:'Плов по-фергански',desc:'Рассыпчатый рис, баранина, морковь, лук, восточные специи',price:580},
+        {name:'Димлама',desc:'Тушёное мясо с сезонными овощами в казане',price:620},
+        {name:'Шашлык из баранины',desc:'Отборная баранина, маринованная и приготовленная на мангале',price:750},
+        {name:'Казан-кебаб',desc:'Нежное мясо с картофелем и луком в казане',price:680},
+        {name:'Думляма',desc:'Слоёное рагу из мяса и сезонных овощей с пряностями',price:650}
       ],
       drinks:[
-        {name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:'150 сом'},
-        {name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:'180 сом'},
-        {name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:'320 сом'},
-        {name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:'280 сом'},
-        {name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:'180 сом'}
+        {name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:150},
+        {name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:180},
+        {name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:320},
+        {name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:280},
+        {name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:180}
       ]
     }
   },
   ky:{
-    welcome_title:'КОШ КЕЛИҢИЗДЕР',
-    welcome_sub:'Чыгыш даамдарынын дүйнөсүн ачыңыз',
+    welcome_title:'КОШ КЕЛИҢИЗДЕР',welcome_sub:'Чыгыш даамдарынын дүйнөсүн ачыңыз',
     enter_btn:'МЕНЮГА КИРҮҮ',
-    hostess_placeholder:'Хостестин сүрөтү',
-    greeting_text:'Andalusка кош келиңиз',
-    menu_title:'МЕНЮ',
-    call_waiter:'ОФИЦИАНТ',
-    your_order:'БУЙРУТМА',
+    greeting_text:'Andalusка кош келиңиз',menu_title:'МЕНЮ',
+    contacts_btn:'БАЙЛАНЫШ',your_order:'БУЙРУТМА',contacts_title:'БАЙЛАНЫШ',
+    phone_label:'ТЕЛЕФОН',or_find_us:'БИЗ ЖАЙГАШКАН',address_label:'ДАРЕК',
+    address_val:'Манас көч., 40, Бишкек',work_hours_label:'Сизди күн сайын күтөбүз',
+    work_hours_val:'Дш–Жш: 11:00 — 23:00',
+    total:'ЖЫЙЫНТЫК',cart_note:'Бул экранды официантка көрсөтүңүз',cart_empty:'Себет бош',
     cats:{cold:'СУУК ТАМАКТАР',hot:'ЫСЫК ТАМАКТАР',soups:'ШОРПОЛОР',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
     dishes:{
       cold:[
-        {name:'Ачык-чучук',desc:'Таза помидор, пияз, жашыл калемпир, кинза жана базилик',price:'350 сом'},
-        {name:'Шакароб',desc:'Помидор жана пияз, базилик, зайтун майы',price:'320 сом'},
-        {name:'Жаш жашылча салат',desc:'Кыяр, помидор, калемпир, жашылча, үй каймагы',price:'380 сом'},
-        {name:'Эт кесилиши',desc:'Ар түрдүү кептирилген эт жана тамак-аш ассортименти',price:'950 сом'},
-        {name:'Жашылча кесилиши',desc:'Таза жана маринад жашылчалар жыпар жыт менен',price:'480 сом'}
+        {name:'Ачык-чучук',desc:'Таза помидор, пияз, жашыл калемпир, кинза жана базилик',price:350},
+        {name:'Шакароб',desc:'Помидор жана пияз, базилик, зайтун майы',price:320},
+        {name:'Жаш жашылча салат',desc:'Кыяр, помидор, калемпир, жашылча, үй каймагы',price:380},
+        {name:'Эт кесилиши',desc:'Ар түрдүү кептирилген эт жана тамак-аш ассортименти',price:950},
+        {name:'Жашылча кесилиши',desc:'Таза жана маринад жашылчалар жыпар жыт менен',price:480}
       ],
       hot:[
-        {name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:'180 сом'},
-        {name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:'520 сом'},
-        {name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:'480 сом'},
-        {name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:'620 сом'}
+        {name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:180},
+        {name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:520},
+        {name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:480},
+        {name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:620}
       ],
       soups:[
-        {name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:'450 сом'},
-        {name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:'420 сом'},
-        {name:'Нарын',desc:'Уй эти менен үй эриштеси',price:'480 сом'},
-        {name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:'520 сом'}
+        {name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:450},
+        {name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:420},
+        {name:'Нарын',desc:'Уй эти менен үй эриштеси',price:480},
+        {name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:520}
       ],
       mains:[
-        {name:'Фергана палоосу',desc:'Рассыпчатый күрүч, козунун эти, сабиз, пияз, жыпар жыт',price:'580 сом'},
-        {name:'Димлама',desc:'Казанда мезгил жашылча менен тушеное эт',price:'620 сом'},
-        {name:'Козу кебаб',desc:'Тандалган козунун эти мангалда бышырылган',price:'750 сом'},
-        {name:'Казан-кебаб',desc:'Картошка жана пияз менен казанда жумшак эт',price:'680 сом'},
-        {name:'Думляма',desc:'Эт жана мезгил жашылча менен катмарлуу рагу',price:'650 сом'}
+        {name:'Фергана палоосу',desc:'Рассыпчатый күрүч, козунун эти, сабиз, пияз, жыпар жыт',price:580},
+        {name:'Димлама',desc:'Казанда мезгил жашылча менен тушеное эт',price:620},
+        {name:'Козу кебаб',desc:'Тандалган козунун эти мангалда бышырылган',price:750},
+        {name:'Казан-кебаб',desc:'Картошка жана пияз менен казанда жумшак эт',price:680},
+        {name:'Думляма',desc:'Эт жана мезгил жашылча менен катмарлуу рагу',price:650}
       ],
       drinks:[
-        {name:'Жашыл чай',desc:'Жаңы демделген, жалбыз менен же таза',price:'150 сом'},
-        {name:'Кок-чай сүт менен',desc:'Сүт жана туз менен көчмөн чайы',price:'180 сом'},
-        {name:'Таза сок',desc:'Апельсин, алма же анар — тандооңуз боюнча',price:'320 сом'},
-        {name:'Андалус лимонады',desc:'Базилик жана кулпунай менен авторлук лимонад',price:'280 сом'},
-        {name:'Айран',desc:'Салттуу сергиткич кымыздан жасалган напиток',price:'180 сом'}
+        {name:'Жашыл чай',desc:'Жаңы демделген, жалбыз менен же таза',price:150},
+        {name:'Кок-чай сүт менен',desc:'Сүт жана туз менен көчмөн чайы',price:180},
+        {name:'Таза сок',desc:'Апельсин, алма же анар — тандооңуз боюнча',price:320},
+        {name:'Андалус лимонады',desc:'Базилик жана кулпунай менен авторлук лимонад',price:280},
+        {name:'Айран',desc:'Салттуу сергиткич кымыздан жасалган напиток',price:180}
       ]
     }
   }
@@ -391,8 +484,10 @@ const T={
 
 const CAT_IDS=['cold','hot','soups','mains','drinks'];
 const EMOJIS={cold:'🥗',hot:'🥟',soups:'🍲',mains:'🍛',drinks:'🍵'};
-let lang='ru',curCat=null,greetTimer=null;
+let lang='ru', curCat=null, greetTimer=null;
+let cart={};
 
+// ── LANG ──
 function setLang(l,btn){
   lang=l;
   const label=btn.textContent.trim();
@@ -400,16 +495,15 @@ function setLang(l,btn){
   applyI18n();buildCats();
   if(curCat){renderDishes(curCat);updateItemsTitle()}
 }
-
 function applyI18n(){
   const t=T[lang];
   document.querySelectorAll('[data-i18n]').forEach(el=>{if(t[el.dataset.i18n])el.textContent=t[el.dataset.i18n]});
 }
-
 function updateItemsTitle(){
   document.getElementById('i-title').textContent=T[lang].cats[curCat];
 }
 
+// ── TRANSITIONS ──
 function goTo(fromId,toId,dir){
   const from=document.getElementById(fromId);
   const to=document.getElementById(toId);
@@ -424,40 +518,38 @@ function goTo(fromId,toId,dir){
     setTimeout(()=>to.classList.remove('do-enter-up','do-enter-down'),700);
     if(toId==='s2'){clearTimeout(greetTimer);greetTimer=setTimeout(()=>goTo('s2','s3','up'),4000)}
     if(toId==='s3')buildCats();
+    if(toId==='s5')renderCart();
   },360);
 }
 
+// ── CATEGORIES ──
 function buildCats(){
-  const grid=document.getElementById('cats-grid');
-  grid.innerHTML='';
+  const grid=document.getElementById('cats-grid');grid.innerHTML='';
   const t=T[lang];
   CAT_IDS.forEach((id,i)=>{
     const c=document.createElement('div');
-    c.className='cat-card';
-    c.style.animationDelay=(0.05+i*0.09)+'s';
+    c.className='cat-card';c.style.animationDelay=(0.05+i*0.09)+'s';
     c.onclick=()=>openCat(id);
     c.innerHTML=`<img class="cat-bg-img" src="${IMGS.cats[id]}" alt="" loading="lazy" onerror="this.style.display='none'">
       <div class="cat-ov"><div class="cat-name">${t.cats[id]}</div><div class="cat-acc"></div></div>`;
     grid.appendChild(c);
   });
 }
+function openCat(id){curCat=id;renderDishes(id);updateItemsTitle();goTo('s3','s4','up')}
 
-function openCat(id){
-  curCat=id;renderDishes(id);updateItemsTitle();goTo('s3','s4','up');
-}
-
+// ── DISHES ──
 function renderDishes(id){
   const dishes=T[lang].dishes[id]||[];
   const imgs=IMGS.dishes[id]||[];
-  const list=document.getElementById('dishes-list');
-  list.innerHTML='';
+  const list=document.getElementById('dishes-list');list.innerHTML='';
   dishes.forEach((d,i)=>{
+    const key=id+'_'+i;
+    const qty=cart[key]?cart[key].qty:0;
     const c=document.createElement('div');
-    c.className='dish-card';
-    c.style.animationDelay=(i*0.07)+'s';
-    const imgUrl=imgs[i];
+    c.className='dish-card';c.style.animationDelay=(i*0.07)+'s';c.id='dc-'+key;
     const emoji=EMOJIS[id]||'🍽';
-    c.innerHTML=`<div class="dish-img dish-shimmer">
+    const imgUrl=imgs[i]||'';
+    c.innerHTML=`<div class="dish-img dish-shimmer" id="di-${key}">
         <img src="${imgUrl}" alt="${d.name}" loading="lazy"
           onload="this.parentElement.classList.remove('dish-shimmer')"
           onerror="this.parentElement.classList.remove('dish-shimmer');this.style.display='none';this.parentElement.innerHTML='<div class=dish-img-fallback>${emoji}</div>'">
@@ -467,16 +559,108 @@ function renderDishes(id){
           <div class="dish-name">${d.name}</div>
           <div class="dish-desc">${d.desc}</div>
         </div>
-        <div class="dish-price">${d.price}</div>
+        <div class="dish-bottom">
+          <div class="dish-price">${d.price} сом</div>
+          <div id="ctrl-${key}">${renderCtrl(key,qty)}</div>
+        </div>
       </div>`;
     list.appendChild(c);
   });
 }
 
-function callWaiter(){
-  if(navigator.vibrate)navigator.vibrate([100,50,100]);
-  const msg=lang==='ru'?'Официант вызван!\nОжидайте, пожалуйста.':'Официант чакырылды!\nКүтүңүз, сураныч.';
-  alert(msg);
+function renderCtrl(key,qty){
+  if(qty===0) return `<button class="add-btn" onclick="addItem('${key}',event)">+ ДОБАВИТЬ</button>`;
+  return `<div class="qty-ctrl">
+    <button class="qty-btn" onclick="changeQty('${key}',-1,event)">−</button>
+    <div class="qty-num">${qty}</div>
+    <button class="qty-btn" onclick="changeQty('${key}',1,event)">+</button>
+  </div>`;
+}
+
+function addItem(key,e){
+  const [catId,idx]=key.split('_');
+  const d=T[lang].dishes[catId][idx];
+  const imgUrl=(IMGS.dishes[catId]||[])[idx]||'';
+  cart[key]={name:d.name,price:d.price,imgUrl,emoji:EMOJIS[catId]||'🍽',qty:1};
+  refreshCtrl(key);updateBadge();spawnFloat(e);
+}
+function changeQty(key,delta,e){
+  if(!cart[key])return;
+  cart[key].qty+=delta;
+  if(cart[key].qty<=0)delete cart[key];
+  refreshCtrl(key);updateBadge();
+  if(delta>0&&e)spawnFloat(e);
+}
+function refreshCtrl(key){
+  const el=document.getElementById('ctrl-'+key);
+  if(el)el.innerHTML=renderCtrl(key,cart[key]?cart[key].qty:0);
+}
+function updateBadge(){
+  const total=Object.values(cart).reduce((s,i)=>s+i.qty,0);
+  const b=document.getElementById('cart-badge');
+  if(b){b.textContent=total;b.classList.toggle('show',total>0);}
+}
+function spawnFloat(e){
+  const label=document.createElement('div');
+  label.className='float-label';label.textContent='+1';
+  const rect=e.target.getBoundingClientRect();
+  label.style.left=(rect.left+rect.width/2-10)+'px';
+  label.style.top=(rect.top-10)+'px';
+  document.body.appendChild(label);
+  setTimeout(()=>label.remove(),700);
+}
+
+// ── CART ──
+function renderCart(){
+  const list=document.getElementById('cart-list');
+  const footer=document.getElementById('cart-footer');
+  const items=Object.entries(cart);
+  list.innerHTML='';footer.innerHTML='';
+  if(!items.length){
+    list.innerHTML=`<div class="cart-empty">${T[lang].cart_empty}</div>`;
+    return;
+  }
+  items.forEach(([key,item],i)=>{
+    const c=document.createElement('div');
+    c.className='cart-item';c.style.animationDelay=(i*0.05)+'s';
+    const imgHtml=item.imgUrl
+      ?`<div class="ci-img"><img src="${item.imgUrl}" alt="${item.name}" loading="lazy" onerror="this.parentElement.outerHTML='<div class=ci-emoji>${item.emoji}</div>'"></div>`
+      :`<div class="ci-emoji">${item.emoji}</div>`;
+    c.innerHTML=`${imgHtml}
+      <div class="ci-info">
+        <div class="ci-name">${item.name}</div>
+        <div class="ci-price">${item.price*item.qty} сом</div>
+      </div>
+      <div class="ci-right">
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="cartQty('${key}',-1)">−</button>
+          <div class="qty-num">${item.qty}</div>
+          <button class="qty-btn" onclick="cartQty('${key}',1)">+</button>
+        </div>
+        <button class="ci-del" onclick="cartDel('${key}')">✕</button>
+      </div>`;
+    list.appendChild(c);
+  });
+  const total=Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);
+  footer.innerHTML=`<div class="cart-footer">
+    <div class="cart-divider"></div>
+    <div class="cart-total-row">
+      <span class="cart-total-lbl">${T[lang].total}</span>
+      <span class="cart-total-val">${total} сом</span>
+    </div>
+    <p class="cart-note">— ${T[lang].cart_note} —</p>
+  </div>`;
+}
+function cartQty(key,delta){
+  if(!cart[key])return;
+  cart[key].qty+=delta;
+  if(cart[key].qty<=0)delete cart[key];
+  updateBadge();renderCart();
+  if(curCat)renderDishes(curCat);
+}
+function cartDel(key){
+  delete cart[key];updateBadge();renderCart();
+  if(curCat)renderDishes(curCat);
 }
 
 buildCats();
