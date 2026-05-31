@@ -3,13 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ANDALUS — Restaurant</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<title>AndaluS — Место встречи</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Jost:wght@200;300;400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-:root{--gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8a6f30;--black:#0A0806;--dark:#110e09;--dark2:#1a1510;--text:#e8dcc8;--text-dim:#9a8a72}
+:root{
+  --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8a6f30;
+  --black:#0A0806;--dark:#110e09;--dark2:#1a1510;
+  --red:#7a1a1a;--text:#e8dcc8;--text-dim:#9a8a72
+}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-family:'Jost',sans-serif;overflow:hidden}
-
 .screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;opacity:1;pointer-events:all}
 .screen.hidden{opacity:0;pointer-events:none}
 
@@ -22,138 +25,163 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .do-exit-down{animation:exitDown 0.38s cubic-bezier(0.4,0,0.2,1) forwards}
 .do-enter-down{animation:enterDown 0.48s cubic-bezier(0.16,1,0.3,1) forwards}
 @keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
 @keyframes flicker{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.65;transform:scale(0.93)}}
 @keyframes hostessReveal{from{opacity:0;transform:translateY(50px) scale(0.95);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
 @keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
 @keyframes cartBounce{0%,100%{transform:scale(1)}40%{transform:scale(1.45)}70%{transform:scale(0.9)}}
 @keyframes floatUp{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-48px)}}
+@keyframes arrowBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+@keyframes barPulse{0%,100%{border-color:rgba(201,168,76,.28)}50%{border-color:rgba(201,168,76,.75)}}
 
 .scroll-area{flex:1;overflow-y:auto;width:100%;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:2px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
-.ambient{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 65% 55% at 50% 100%,rgba(180,120,20,0.20) 0%,transparent 70%),radial-gradient(ellipse 45% 35% at 20% 25%,rgba(180,100,10,0.09) 0%,transparent 60%),radial-gradient(ellipse 40% 30% at 80% 20%,rgba(180,100,10,0.07) 0%,transparent 60%)}
 .lang-sw{display:flex;align-items:center;border:1px solid rgba(201,168,76,0.28);overflow:hidden;border-radius:2px}
 .lang-opt{padding:6px 12px;font-size:11px;font-family:'Jost',sans-serif;letter-spacing:0.08em;color:var(--text-dim);background:transparent;border:none;cursor:pointer;transition:background .2s,color .2s}
 .lang-opt.active{background:rgba(201,168,76,0.18);color:var(--gold)}
 .lang-sep{width:1px;height:18px;background:rgba(201,168,76,0.22)}
 
+/* ══ LOGO ══ */
+/* S1 — крупный логотип по центру */
+.site-logo{display:block;width:min(280px,72vw);height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
+/* Хедеры S2-S6 — заметно крупнее */
+.site-logo-sm{display:block;width:90px;height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
+
 /* ══ S1 ══ */
 #s1{background:var(--black);text-align:center;z-index:10}
+#s1::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 65% 55% at 50% 100%,rgba(120,20,20,0.2) 0%,transparent 70%),radial-gradient(ellipse 45% 35% at 20% 25%,rgba(180,100,10,0.07) 0%,transparent 60%)}
 .s1-inner{display:flex;flex-direction:column;align-items:center;position:relative;z-index:2;padding:0 32px;width:100%}
-.logo-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;animation:fadeUp 1s ease both 0.2s}
-.logo-svg{width:56px;height:56px;margin-bottom:4px}
-.logo-name{font-family:'Cinzel',serif;font-size:clamp(30px,8vw,46px);letter-spacing:.28em;color:var(--gold);font-weight:600;line-height:1}
-.logo-sub{font-family:'Jost',sans-serif;font-weight:200;font-size:11px;letter-spacing:.55em;color:var(--gold-dim);text-transform:uppercase;margin-top:4px}
-.divider{width:130px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:26px auto;animation:fadeUp 1s ease both 0.4s;position:relative;z-index:2}
-.w-title{font-family:'Cinzel',serif;font-size:clamp(14px,4vw,20px);letter-spacing:.14em;color:var(--text);animation:fadeUp 1s ease both 0.5s;position:relative;z-index:2}
-.w-sub{font-size:13px;font-weight:300;color:var(--text-dim);letter-spacing:.04em;margin-top:10px;animation:fadeUp 1s ease both 0.6s;position:relative;z-index:2;line-height:1.7;max-width:280px;text-align:center}
-.orn-line{display:flex;align-items:center;gap:14px;justify-content:center;margin:30px auto;animation:fadeUp 1s ease both 0.65s;position:relative;z-index:2;width:180px}
+.s1-logo-wrap{animation:fadeUp 1s ease both 0.2s;display:flex;flex-direction:column;align-items:center;gap:6px}
+/* S1 тексты — единая система */
+.s1-logo-sub{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.32em;color:var(--gold-dim);text-indent:.32em}
+.divider{width:120px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:18px auto;animation:fadeUp 1s ease both 0.4s;position:relative;z-index:2}
+/* Главный заголовок — золото, Cinzel, средний */
+.w-title{font-family:'Cinzel',serif;font-size:16px;letter-spacing:.22em;color:var(--gold);animation:fadeUp 1s ease both 0.5s;position:relative;z-index:2;font-weight:400}
+/* Подзаголовок — тот же цвет, меньше, легче */
+.w-sub{font-family:'Jost',sans-serif;font-size:12px;font-weight:300;color:rgba(201,168,76,.6);letter-spacing:.1em;margin-top:6px;animation:fadeUp 1s ease both 0.6s;position:relative;z-index:2;line-height:1.7;max-width:260px;text-align:center}
+.orn-line{display:flex;align-items:center;gap:14px;justify-content:center;margin:18px auto;animation:fadeUp 1s ease both 0.65s;position:relative;z-index:2;width:160px}
 .orn-line .ln{flex:1;height:1px}
 .orn-line .ln:first-child{background:linear-gradient(90deg,transparent,var(--gold))}
 .orn-line .ln:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
-.orn-line .di{width:7px;height:7px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
-.enter-btn{padding:16px 52px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-family:'Cinzel',serif;font-size:12px;letter-spacing:.24em;cursor:pointer;position:relative;overflow:hidden;transition:color .3s;animation:fadeUp 1s ease both 0.8s;z-index:2}
+.orn-line .di{width:6px;height:6px;background:var(--gold);transform:rotate(45deg);flex-shrink:0}
+/* Кнопка — золото, Cinzel, тот же трекинг что и заголовок */
+.enter-btn{padding:14px 44px;background:transparent;border:1px solid rgba(201,168,76,.7);color:var(--gold);font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;cursor:pointer;position:relative;overflow:hidden;transition:color .3s;animation:fadeUp 1s ease both 0.8s;z-index:2}
 .enter-btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:translateX(-100%);transition:transform .35s ease;z-index:-1}
 .enter-btn:hover::before,.enter-btn:active::before{transform:translateX(0)}
 .enter-btn:hover,.enter-btn:active{color:var(--black)}
-.insta-tag{font-size:11px;color:var(--gold-dim);letter-spacing:.14em;font-weight:200;animation:fadeUp 1s ease both 1s;z-index:2;margin-top:22px}
+/* Instagram — тот же стиль что и w-sub */
+.insta-tag{font-family:'Jost',sans-serif;font-size:11px;color:rgba(201,168,76,.45);letter-spacing:.12em;font-weight:300;animation:fadeUp 1s ease both 1s;z-index:2;margin-top:16px}
 .s1-lang{position:absolute;top:20px;right:20px;z-index:10;animation:fadeUp .6s ease both 0.3s}
 
-/* ══ S2 ══ */
+/* ══ S2 HOSTESS ══ */
 #s2{z-index:9;background:var(--black)}
-.g-bg{position:absolute;inset:0;background:radial-gradient(ellipse 75% 65% at 50% 85%,rgba(140,90,10,.28) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 25% 20%,rgba(180,110,10,.13) 0%,transparent 60%)}
+.g-bg{position:absolute;inset:0;background:radial-gradient(ellipse 75% 65% at 50% 85%,rgba(100,20,20,.28) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 25% 20%,rgba(139,26,26,.12) 0%,transparent 60%)}
 .g-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;height:100%}
-.g-header{display:flex;align-items:center;justify-content:space-between;width:100%;padding:18px 22px;flex-shrink:0}
-.g-logo{display:flex;align-items:center;gap:10px}
-.g-logo span{font-family:'Cinzel',serif;font-size:16px;letter-spacing:.22em;color:var(--gold)}
+.g-header{display:flex;align-items:center;justify-content:space-between;width:100%;padding:12px 18px;flex-shrink:0}
 .h-area{flex:1;display:flex;align-items:center;justify-content:center;position:relative;width:100%;overflow:hidden}
-.h-sil{width:min(290px,74vw);height:min(440px,64vh);position:relative;animation:hostessReveal 1.2s cubic-bezier(0.16,1,0.3,1) both}
+.h-sil{width:min(290px,74vw);height:min(420px,60vh);position:relative;animation:hostessReveal 1.2s cubic-bezier(0.16,1,0.3,1) both}
 .arch{position:absolute;inset:-24px -32px;border:1px solid rgba(201,168,76,.22);border-radius:200px 200px 0 0;pointer-events:none}
-.arch::before{content:'';position:absolute;inset:12px;border:1px solid rgba(201,168,76,.11);border-radius:200px 200px 0 0}
-.h-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(40,28,12,.35) 0%,rgba(15,10,3,.85) 100%);border-radius:160px 160px 0 0;overflow:hidden;position:relative}
+.arch::before{content:'';position:absolute;inset:12px;border:1px solid rgba(139,26,26,.18);border-radius:200px 200px 0 0}
+.h-img{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(40,10,10,.35) 0%,rgba(15,5,5,.85) 100%);border-radius:160px 160px 0 0;overflow:hidden;position:relative}
 .light-orb{position:absolute;border-radius:50%;filter:blur(45px);animation:flicker 3.5s ease-in-out infinite}
-.lo1{width:130px;height:130px;background:rgba(255,160,30,.16);top:8%;left:8%}
-.lo2{width:90px;height:90px;background:rgba(255,140,20,.13);top:18%;right:12%;animation-delay:.8s}
-.lo3{width:110px;height:110px;background:rgba(200,130,10,.11);bottom:28%;left:18%;animation-delay:1.6s}
+.lo1{width:130px;height:130px;background:rgba(180,40,30,.18);top:8%;left:8%}
+.lo2{width:90px;height:90px;background:rgba(200,60,20,.13);top:18%;right:12%;animation-delay:.8s}
+.lo3{width:110px;height:110px;background:rgba(160,100,10,.11);bottom:28%;left:18%;animation-delay:1.6s}
 .hostess-actual{width:100%;height:100%;object-fit:cover;border-radius:160px 160px 0 0;position:absolute;inset:0}
-.g-bar{width:calc(100% - 40px);max-width:360px;margin:0 auto 24px;padding:16px 22px;background:rgba(12,9,4,.88);border:1px solid rgba(201,168,76,.28);display:flex;align-items:center;justify-content:space-between;cursor:pointer;animation:fadeUp .9s ease both 0.5s;backdrop-filter:blur(12px);transition:border-color .3s;flex-shrink:0}
-.g-bar:hover{border-color:rgba(201,168,76,.55)}
-.g-text{font-family:'Cormorant Garamond',serif;font-size:19px;font-style:italic;color:var(--text);font-weight:300;line-height:1.3}
-.audio-ic{color:var(--gold);font-size:20px;animation:pulse 2.5s ease infinite;flex-shrink:0;margin-left:14px}
+.greet-block{width:calc(100% - 40px);max-width:360px;margin:0 auto 8px;text-align:center;opacity:0;animation:fadeUp .7s ease both 1.2s}
+.greet-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.22em;color:var(--gold-dim)}
+.greet-text{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,4.5vw,22px);font-style:italic;color:var(--text);font-weight:300;line-height:1.4;margin-top:4px}
+.g-bar{width:calc(100% - 40px);max-width:360px;margin:0 auto 20px;padding:15px 22px;background:rgba(12,5,5,.88);border:1px solid rgba(201,168,76,.28);display:flex;align-items:center;justify-content:space-between;cursor:pointer;backdrop-filter:blur(12px);flex-shrink:0;opacity:0;animation:fadeUp .7s ease both 1.9s,barPulse 2s ease-in-out infinite 2.5s;transition:border-color .3s,background .3s}
+.g-bar:hover,.g-bar:active{border-color:rgba(201,168,76,.75);background:rgba(30,10,10,.95)}
+.g-bar-left{display:flex;flex-direction:column;gap:3px}
+.g-bar-hint{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;color:var(--gold-dim)}
+.g-bar-label{font-family:'Cormorant Garamond',serif;font-size:18px;font-style:italic;color:var(--text);font-weight:300}
+.g-bar-arrow{color:var(--gold);font-size:22px;animation:arrowBounce 1.2s ease-in-out infinite;flex-shrink:0;margin-left:14px}
+.progress-dots{display:flex;gap:7px;justify-content:center;margin-bottom:14px;flex-shrink:0;opacity:0;animation:fadeIn .5s ease both 2s}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.2);transition:background .4s}
+.dot.active{background:var(--gold)}
 
 /* ══ S3 MENU ══ */
 #s3{z-index:8;background:var(--dark)}
-.m-header{width:100%;padding:16px 20px 13px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
-.m-logo{display:flex;align-items:center;gap:10px}
-.m-logo span{font-family:'Cinzel',serif;font-size:15px;letter-spacing:.22em;color:var(--gold)}
-.logo-svg-sm{width:22px;height:22px}
-.logo-svg-md{width:26px;height:26px}
-.m-title-sec{text-align:center;padding:26px 24px 14px;animation:fadeUp .6s ease both;width:100%}
-.m-title{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,34px);letter-spacing:.38em;text-indent:.38em;color:var(--text);font-weight:400;display:block;text-align:center;width:100%}
-.m-orn{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:12px}
+.m-header{width:100%;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.m-title-sec{text-align:center;padding:20px 24px 12px;animation:fadeUp .6s ease both;width:100%}
+.m-title{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,34px);letter-spacing:.22em;text-indent:.22em;color:var(--text);font-weight:400;display:block;text-align:center;width:100%}
+.m-orn{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:10px}
 .m-orn .ln{flex:1;max-width:80px;height:1px}
 .m-orn .ln:first-child{background:linear-gradient(90deg,transparent,var(--gold))}
 .m-orn .ln:last-child{background:linear-gradient(90deg,var(--gold),transparent)}
 .m-orn .di{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
 .cats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 12px 4px;width:100%;max-width:500px;margin:0 auto}
+
+/* ══ КАРТОЧКИ КАТЕГОРИЙ — исправлен текст ══ */
 .cat-card{position:relative;border:1px solid rgba(201,168,76,.2);cursor:pointer;overflow:hidden;aspect-ratio:1/0.85;background:var(--dark2);transition:border-color .3s,transform .28s,box-shadow .3s;animation:fadeUp .5s ease both}
-.cat-card:nth-child(5){grid-column:span 2;aspect-ratio:unset;height:96px}
-.cat-card:hover,.cat-card:active{border-color:rgba(201,168,76,.55);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.45)}
+.cat-card:nth-child(5){grid-column:span 2;aspect-ratio:unset;height:100px}
+.cat-card:hover,.cat-card:active{border-color:rgba(139,26,26,.7);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.45)}
 .cat-bg-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.45;transition:opacity .3s}
 .cat-card:hover .cat-bg-img,.cat-card:active .cat-bg-img{opacity:0.62}
-.cat-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.78) 100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:12px 10px}
-.cat-name{font-family:'Cinzel',serif;font-size:clamp(10px,2.5vw,13px);letter-spacing:.13em;color:#fff;text-align:center;font-weight:400;text-shadow:0 1px 10px rgba(0,0,0,.95);line-height:1.4}
+.cat-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(8,2,2,0.88) 100%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-end;
+  padding:0 8px 14px;
+}
+.cat-name{
+  font-family:'Cinzel',serif;
+  font-size:clamp(9px,2.2vw,12px);
+  letter-spacing:.1em;
+  color:#fff;
+  text-align:center;
+  font-weight:600;
+  text-shadow:0 2px 12px rgba(0,0,0,1),0 0 24px rgba(0,0,0,.9);
+  line-height:1.3;
+  width:100%;
+}
 .cat-acc{width:22px;height:1px;background:var(--gold);margin-top:6px;transition:width .3s}
 .cat-card:hover .cat-acc,.cat-card:active .cat-acc{width:38px}
 
-/* bottom action buttons */
 .m-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 12px 32px;width:100%;max-width:500px;margin:0 auto}
-.act-btn{padding:15px 8px;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.22);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .3s,border-color .3s,color .3s;animation:fadeUp .5s ease both;position:relative}
-.act-btn:hover,.act-btn:active{background:rgba(201,168,76,.13);border-color:rgba(201,168,76,.5);color:var(--gold)}
-
-/* cart badge on button */
-.cart-badge{display:none;position:absolute;top:-8px;right:-8px;background:var(--gold);color:var(--black);border-radius:50%;width:20px;height:20px;font-size:10px;font-family:'Cinzel',serif;font-weight:700;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.act-btn{padding:15px 8px;background:rgba(139,26,26,.06);border:1px solid rgba(201,168,76,.22);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .3s,border-color .3s,color .3s;animation:fadeUp .5s ease both;position:relative}
+.act-btn:hover,.act-btn:active{background:rgba(139,26,26,.18);border-color:rgba(201,168,76,.5);color:var(--gold)}
+.cart-badge{display:none;position:absolute;top:-8px;right:-8px;background:var(--red);color:#fff;border-radius:50%;width:20px;height:20px;font-size:10px;font-family:'Cinzel',serif;font-weight:700;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .cart-badge.show{display:flex;animation:cartBounce .35s ease}
 
 /* ══ S4 ITEMS ══ */
 #s4{z-index:7;background:var(--dark)}
-.i-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.i-header{width:100%;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0;position:relative}
 .back-btn{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .2s,transform .2s;border-radius:2px}
-.back-btn:hover,.back-btn:active{background:rgba(201,168,76,.12);transform:translateX(-2px)}
-.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.back-btn:hover,.back-btn:active{background:rgba(139,26,26,.2);transform:translateX(-2px)}
+.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;position:absolute;left:56px;right:56px;text-align:center;white-space:nowrap;overflow:hidden;pointer-events:none}
 .dishes-list{padding:14px 12px 80px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .dish-card{display:grid;grid-template-columns:92px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s;animation:fadeUp .4s ease both;border-radius:2px}
-.dish-img{width:92px;height:92px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1810,#0f0b06);overflow:hidden;flex-shrink:0;position:relative}
+.dish-img{width:92px;height:92px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1010,#0f0606);overflow:hidden;flex-shrink:0;position:relative}
 .dish-img img{width:100%;height:100%;object-fit:cover;display:block}
 .dish-img-fallback{font-size:32px}
-.dish-shimmer{background:linear-gradient(90deg,#1a1510 0%,#2a2018 50%,#1a1510 100%);background-size:200% 100%;animation:shimmer 1.6s infinite}
+.dish-shimmer{background:linear-gradient(90deg,#1a1010 0%,#2a1518 50%,#1a1010 100%);background-size:200% 100%;animation:shimmer 1.6s infinite}
 .dish-info{padding:11px 13px;display:flex;flex-direction:column;justify-content:space-between;min-width:0}
 .dish-name{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:400;color:var(--text);line-height:1.3}
 .dish-desc{font-size:11px;font-weight:300;color:var(--text-dim);line-height:1.6;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .dish-bottom{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px}
 .dish-price{font-family:'Cinzel',serif;font-size:13px;color:var(--gold);letter-spacing:.05em;flex-shrink:0}
-
-/* qty controls on dish */
 .qty-ctrl{display:flex;align-items:center}
-.qty-btn{width:28px;height:28px;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.32);color:var(--gold);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1;font-family:'Jost',sans-serif}
-.qty-btn:hover,.qty-btn:active{background:rgba(201,168,76,.28)}
+.qty-btn{width:28px;height:28px;background:rgba(139,26,26,.15);border:1px solid rgba(201,168,76,.32);color:var(--gold);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1;font-family:'Jost',sans-serif}
+.qty-btn:hover,.qty-btn:active{background:rgba(139,26,26,.35)}
 .qty-num{width:32px;height:28px;background:rgba(201,168,76,.06);border-top:1px solid rgba(201,168,76,.28);border-bottom:1px solid rgba(201,168,76,.28);color:var(--text);font-family:'Cinzel',serif;font-size:12px;display:flex;align-items:center;justify-content:center}
-.add-btn{padding:6px 14px;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;transition:background .22s,color .22s;white-space:nowrap}
-.add-btn:hover,.add-btn:active{background:var(--gold);color:var(--black)}
-
-/* float +1 animation */
+.add-btn{padding:6px 14px;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;transition:background .22s,color .22s,border-color .22s;white-space:nowrap}
+.add-btn:hover,.add-btn:active{background:var(--red);border-color:var(--red);color:#fff}
 .float-label{position:fixed;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);pointer-events:none;z-index:9999;animation:floatUp .7s ease forwards}
 
 /* ══ S5 CART ══ */
 #s5{z-index:6;background:var(--dark)}
-.cart-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.cart-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0}
 .cart-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;color:var(--gold);font-weight:400;flex:1;text-align:center}
 .cart-list{padding:14px 12px 0;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .cart-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--dark2);border:1px solid rgba(201,168,76,.15);border-radius:2px;animation:fadeUp .3s ease both}
-.ci-img{width:44px;height:44px;border-radius:2px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#1e1810,#0f0b06)}
+.ci-img{width:44px;height:44px;border-radius:2px;overflow:hidden;flex-shrink:0;background:linear-gradient(135deg,#1e1010,#0f0606)}
 .ci-img img{width:100%;height:100%;object-fit:cover;display:block}
-.ci-emoji{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:linear-gradient(135deg,#1e1810,#0f0b06);border-radius:2px}
+.ci-emoji{width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;background:linear-gradient(135deg,#1e1010,#0f0606);border-radius:2px}
 .ci-info{flex:1;min-width:0}
 .ci-name{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ci-price{font-family:'Cinzel',serif;font-size:12px;color:var(--gold);margin-top:3px}
@@ -170,11 +198,11 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 /* ══ S6 CONTACTS ══ */
 #s6{z-index:5;background:var(--dark)}
-.contacts-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,14,9,.97);backdrop-filter:blur(14px);flex-shrink:0}
+.contacts-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0}
 .contacts-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.2em;color:var(--gold);font-weight:400;flex:1;text-align:center}
 .contacts-body{padding:32px 20px 48px;width:100%;max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
 .contact-card{display:flex;align-items:center;gap:18px;padding:20px 22px;background:var(--dark2);border:1px solid rgba(201,168,76,.18);border-radius:2px;cursor:pointer;transition:border-color .3s,background .3s;text-decoration:none;animation:fadeUp .45s ease both}
-.contact-card:hover,.contact-card:active{border-color:rgba(201,168,76,.5);background:rgba(201,168,76,.06)}
+.contact-card:hover,.contact-card:active{border-color:rgba(139,26,26,.6);background:rgba(139,26,26,.08)}
 .contact-icon{font-size:28px;flex-shrink:0;width:44px;text-align:center}
 .contact-info{flex:1}
 .contact-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;color:var(--text-dim)}
@@ -193,7 +221,6 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 <!-- S1 WELCOME -->
 <div class="screen" id="s1">
-  <div class="ambient"></div>
   <div class="s1-lang">
     <div class="lang-sw">
       <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
@@ -202,21 +229,16 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
     </div>
   </div>
   <div class="s1-inner">
-    <div class="logo-wrap">
-      <svg class="logo-svg" viewBox="0 0 56 56" fill="none">
-        <path d="M28 4 L32 18 L46 14 L36 24 L50 28 L36 32 L46 42 L32 38 L28 52 L24 38 L10 42 L20 32 L6 28 L20 24 L10 14 L24 18 Z" stroke="#C9A84C" stroke-width="0.8" fill="none"/>
-        <path d="M28 10 L30.5 20 L40 17 L33.5 23.5 L44 28 L33.5 32.5 L40 39 L30.5 36 L28 46 L25.5 36 L16 39 L22.5 32.5 L12 28 L22.5 23.5 L16 17 L25.5 20 Z" stroke="#C9A84C" stroke-width="0.5" fill="rgba(201,168,76,0.06)"/>
-        <circle cx="28" cy="28" r="4" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.12)"/>
-      </svg>
-      <div class="logo-name">ANDALUS</div>
-      <div class="logo-sub">Restaurant</div>
+    <div class="s1-logo-wrap">
+      <img src="logo.png" alt="AndaluS" class="site-logo">
+      <div class="s1-logo-sub">RESTAURANT</div>
     </div>
     <div class="divider"></div>
     <div class="w-title" data-i18n="welcome_title">ДОБРО ПОЖАЛОВАТЬ</div>
     <div class="w-sub" data-i18n="welcome_sub">Откройте мир восточных вкусов</div>
     <div class="orn-line"><div class="ln"></div><div class="di"></div><div class="ln"></div></div>
     <button class="enter-btn" onclick="goTo('s1','s2','up')" data-i18n="enter_btn">ВОЙТИ В МЕНЮ</button>
-    <div class="insta-tag">@andalus_restaurant</div>
+    <div class="insta-tag">@andalus.kg</div>
   </div>
 </div>
 
@@ -225,13 +247,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   <div class="g-bg"></div>
   <div class="g-content">
     <div class="g-header">
-      <div class="g-logo">
-        <svg class="logo-svg-md" viewBox="0 0 56 56" fill="none">
-          <path d="M28 4 L32 18 L46 14 L36 24 L50 28 L36 32 L46 42 L32 38 L28 52 L24 38 L10 42 L20 32 L6 28 L20 24 L10 14 L24 18 Z" stroke="#C9A84C" stroke-width="1.2" fill="none"/>
-          <circle cx="28" cy="28" r="4" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.12)"/>
-        </svg>
-        <span>ANDALUS</span>
-      </div>
+      <img src="logo.png" alt="AndaluS" class="site-logo-sm">
       <div class="lang-sw">
         <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
         <div class="lang-sep"></div>
@@ -249,31 +265,38 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
         </div>
       </div>
     </div>
-    <div class="g-bar" onclick="clearTimeout(greetTimer);goTo('s2','s3','up')">
-      <span class="g-text" data-i18n="greeting_text">Добро пожаловать в Andalus</span>
-      <span class="audio-ic">♪</span>
+    <div class="greet-block">
+      <div class="greet-name" data-i18n="greet_label">Здравствуйте!</div>
+      <div class="greet-text" data-i18n="greeting_text">Рады видеть вас в AndaluS</div>
+    </div>
+    <div class="progress-dots" id="prog-dots">
+      <div class="dot active" id="dot-0"></div>
+      <div class="dot" id="dot-1"></div>
+      <div class="dot" id="dot-2"></div>
+      <div class="dot" id="dot-3"></div>
+    </div>
+    <div class="g-bar" id="g-bar" onclick="clearTimeout(greetTimer);goTo('s2','s3','up')">
+      <div class="g-bar-left">
+        <div class="g-bar-hint" data-i18n="tap_hint">НАЖМИТЕ ЧТОБЫ ПРОДОЛЖИТЬ</div>
+        <div class="g-bar-label" data-i18n="menu_btn_label">Открыть меню</div>
+      </div>
+      <div class="g-bar-arrow">›</div>
     </div>
   </div>
 </div>
 
 <!-- S3 MENU -->
 <div class="screen hidden" id="s3">
-  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(140,90,10,.13) 0%,transparent 70%)"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(100,20,20,.15) 0%,transparent 70%)"></div>
   <div class="m-header">
-    <div class="m-logo">
-      <svg class="logo-svg-sm" viewBox="0 0 56 56" fill="none">
-        <path d="M28 4 L32 18 L46 14 L36 24 L50 28 L36 32 L46 42 L32 38 L28 52 L24 38 L10 42 L20 32 L6 28 L20 24 L10 14 L24 18 Z" stroke="#C9A84C" stroke-width="1.5" fill="none"/>
-        <circle cx="28" cy="28" r="4" stroke="#C9A84C" stroke-width="1" fill="rgba(201,168,76,0.12)"/>
-      </svg>
-      <span>ANDALUS</span>
-    </div>
+    <img src="logo.png" alt="AndaluS" class="site-logo-sm">
     <div class="lang-sw">
       <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
       <div class="lang-sep"></div>
       <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
     </div>
   </div>
-  <div class="scroll-area" id="menu-scroll">
+  <div class="scroll-area">
     <div class="m-title-sec">
       <div class="m-title" data-i18n="menu_title">МЕНЮ</div>
       <div class="m-orn"><div class="ln"></div><div class="di"></div><div class="ln"></div></div>
@@ -293,11 +316,11 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 <!-- S4 ITEMS -->
 <div class="screen hidden" id="s4">
-  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 40% at 50% 100%,rgba(140,90,10,.1) 0%,transparent 70%)"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 40% at 50% 100%,rgba(100,20,20,.1) 0%,transparent 70%)"></div>
   <div class="i-header">
     <button class="back-btn" onclick="goTo('s4','s3','down')">←</button>
     <div class="i-title" id="i-title"></div>
-    <div class="lang-sw">
+    <div class="lang-sw" style="margin-left:auto">
       <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
       <div class="lang-sep"></div>
       <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
@@ -310,7 +333,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 <!-- S5 CART -->
 <div class="screen hidden" id="s5">
-  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(140,90,10,.1) 0%,transparent 70%)"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(100,20,20,.1) 0%,transparent 70%)"></div>
   <div class="cart-header">
     <button class="back-btn" onclick="goTo('s5','s3','down')">←</button>
     <div class="cart-title" data-i18n="your_order">МОЙ ЗАКАЗ</div>
@@ -324,7 +347,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 <!-- S6 CONTACTS -->
 <div class="screen hidden" id="s6">
-  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(140,90,10,.1) 0%,transparent 70%)"></div>
+  <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 70% 40% at 50% 100%,rgba(100,20,20,.1) 0%,transparent 70%)"></div>
   <div class="contacts-header">
     <button class="back-btn" onclick="goTo('s6','s3','down')">←</button>
     <div class="contacts-title" data-i18n="contacts_title">КОНТАКТЫ</div>
@@ -332,11 +355,11 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   </div>
   <div class="scroll-area">
     <div class="contacts-body">
-      <a class="contact-card" href="tel:+996700000000" style="animation-delay:.05s">
+      <a class="contact-card" href="tel:+996000000000" style="animation-delay:.05s">
         <div class="contact-icon">📞</div>
         <div class="contact-info">
           <div class="contact-label" data-i18n="phone_label">ТЕЛЕФОН</div>
-          <div class="contact-value">+996 700 000 000</div>
+          <div class="contact-value">+996 000 000 000</div>
         </div>
         <div class="contact-arrow">›</div>
       </a>
@@ -357,7 +380,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
         <div class="contact-icon">📍</div>
         <div class="contact-info">
           <div class="contact-label" data-i18n="address_label">АДРЕС</div>
-          <div class="contact-value" data-i18n="address_val">г. Манас проспект Тумонбая Байзакова 141</div>
+          <div class="contact-value" data-i18n="address_val">пр. Тумонбая Байзакова, 141, Манас</div>
         </div>
         <div class="contact-arrow">›</div>
       </a>
@@ -390,104 +413,48 @@ const IMGS={
 const T={
   ru:{
     welcome_title:'ДОБРО ПОЖАЛОВАТЬ',welcome_sub:'Откройте мир восточных вкусов',
-    enter_btn:'ВОЙТИ В МЕНЮ',
-    greeting_text:'Добро пожаловать в Andalus',menu_title:'МЕНЮ',
+    enter_btn:'ВОЙТИ В МЕНЮ',greet_label:'ДОБРО ПОЖАЛОВАТЬ В',
+    greeting_text:'Рады видеть вас в AndaluS',tap_hint:'НАЖМИТЕ ЧТОБЫ ПРОДОЛЖИТЬ',
+    menu_btn_label:'Открыть меню',menu_title:'МЕНЮ',
     contacts_btn:'КОНТАКТЫ',your_order:'МОЙ ЗАКАЗ',contacts_title:'КОНТАКТЫ',
     phone_label:'ТЕЛЕФОН',or_find_us:'МЫ НАХОДИМСЯ',address_label:'АДРЕС',
-    address_val:'г. Манас проспект Тумонбая Байзакова 141',work_hours_label:'Ждём вас каждый день',
+    address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Ждём вас каждый день',
     work_hours_val:'Пн–Вс: 11:00 — 23:00',
     total:'ИТОГО',cart_note:'Покажите этот экран официанту',cart_empty:'Корзина пуста',
     cats:{cold:'ХОЛОДНЫЕ ЗАКУСКИ',hot:'ГОРЯЧИЕ ЗАКУСКИ',soups:'СУПЫ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
     dishes:{
-      cold:[
-        {name:'Ачик-чучук',desc:'Свежие томаты, лук, зелёный перец, кинза и базилик',price:350},
-        {name:'Шакароб',desc:'Помидоры с луком, базилик, оливковое масло',price:320},
-        {name:'Салат из свежих овощей',desc:'Огурцы, помидоры, перец, зелень, домашняя сметана',price:380},
-        {name:'Мясная нарезка',desc:'Ассорти из вяленого мяса, бастурмы и закусок',price:950},
-        {name:'Овощная нарезка',desc:'Свежие и маринованные овощи с пряной зеленью',price:480}
-      ],
-      hot:[
-        {name:'Самса',desc:'Слоёное тесто, рубленое мясо с луком. Свежая из тандыра',price:180},
-        {name:'Манты',desc:'Паровые пельмени с сочным мясом и тыквой',price:520},
-        {name:'Чучвара',desc:'Маленькие пельмени в ароматном бульоне с зеленью',price:480},
-        {name:'Люля-кебаб',desc:'Рубленое мясо на шпажке, свежая зелень, лаваш',price:620}
-      ],
-      soups:[
-        {name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},
-        {name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},
-        {name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},
-        {name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}
-      ],
-      mains:[
-        {name:'Плов по-фергански',desc:'Рассыпчатый рис, баранина, морковь, лук, восточные специи',price:580},
-        {name:'Димлама',desc:'Тушёное мясо с сезонными овощами в казане',price:620},
-        {name:'Шашлык из баранины',desc:'Отборная баранина, маринованная и приготовленная на мангале',price:750},
-        {name:'Казан-кебаб',desc:'Нежное мясо с картофелем и луком в казане',price:680},
-        {name:'Думляма',desc:'Слоёное рагу из мяса и сезонных овощей с пряностями',price:650}
-      ],
-      drinks:[
-        {name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:150},
-        {name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:180},
-        {name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:320},
-        {name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:280},
-        {name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:180}
-      ]
+      cold:[{name:'Ачик-чучук',desc:'Свежие томаты, лук, зелёный перец, кинза и базилик',price:350},{name:'Шакароб',desc:'Помидоры с луком, базилик, оливковое масло',price:320},{name:'Салат из свежих овощей',desc:'Огурцы, помидоры, перец, зелень, домашняя сметана',price:380},{name:'Мясная нарезка',desc:'Ассорти из вяленого мяса, бастурмы и закусок',price:950},{name:'Овощная нарезка',desc:'Свежие и маринованные овощи с пряной зеленью',price:480}],
+      hot:[{name:'Самса',desc:'Слоёное тесто, рубленое мясо с луком. Свежая из тандыра',price:180},{name:'Манты',desc:'Паровые пельмени с сочным мясом и тыквой',price:520},{name:'Чучвара',desc:'Маленькие пельмени в ароматном бульоне с зеленью',price:480},{name:'Люля-кебаб',desc:'Рубленое мясо на шпажке, свежая зелень, лаваш',price:620}],
+      soups:[{name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},{name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},{name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},{name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}],
+      mains:[{name:'Плов по-фергански',desc:'Рассыпчатый рис, баранина, морковь, лук, восточные специи',price:580},{name:'Димлама',desc:'Тушёное мясо с сезонными овощами в казане',price:620},{name:'Шашлык из баранины',desc:'Отборная баранина, маринованная и приготовленная на мангале',price:750},{name:'Казан-кебаб',desc:'Нежное мясо с картофелем и луком в казане',price:680},{name:'Думляма',desc:'Слоёное рагу из мяса и сезонных овощей с пряностями',price:650}],
+      drinks:[{name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:150},{name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:180},{name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:320},{name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:280},{name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:180}]
     }
   },
   ky:{
     welcome_title:'КОШ КЕЛИҢИЗДЕР',welcome_sub:'Чыгыш даамдарынын дүйнөсүн ачыңыз',
-    enter_btn:'МЕНЮГА КИРҮҮ',
-    greeting_text:'Andalusка кош келиңиз',menu_title:'МЕНЮ',
+    enter_btn:'МЕНЮГА КИРҮҮ',greet_label:'КОШ КЕЛИҢИЗ',
+    greeting_text:'AndaluSка кош келиңиз',tap_hint:'УЛАНТУУ ҮЧҮН БАСЫҢЫЗ',
+    menu_btn_label:'Менюну ачуу',menu_title:'МЕНЮ',
     contacts_btn:'БАЙЛАНЫШ',your_order:'БУЙРУТМА',contacts_title:'БАЙЛАНЫШ',
     phone_label:'ТЕЛЕФОН',or_find_us:'БИЗ ЖАЙГАШКАН',address_label:'ДАРЕК',
-    address_val:'Манас көч., 40, Бишкек',work_hours_label:'Сизди күн сайын күтөбүз',
+    address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Сизди күн сайын күтөбүз',
     work_hours_val:'Дш–Жш: 11:00 — 23:00',
     total:'ЖЫЙЫНТЫК',cart_note:'Бул экранды официантка көрсөтүңүз',cart_empty:'Себет бош',
     cats:{cold:'СУУК ТАМАКТАР',hot:'ЫСЫК ТАМАКТАР',soups:'ШОРПОЛОР',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
     dishes:{
-      cold:[
-        {name:'Ачык-чучук',desc:'Таза помидор, пияз, жашыл калемпир, кинза жана базилик',price:350},
-        {name:'Шакароб',desc:'Помидор жана пияз, базилик, зайтун майы',price:320},
-        {name:'Жаш жашылча салат',desc:'Кыяр, помидор, калемпир, жашылча, үй каймагы',price:380},
-        {name:'Эт кесилиши',desc:'Ар түрдүү кептирилген эт жана тамак-аш ассортименти',price:950},
-        {name:'Жашылча кесилиши',desc:'Таза жана маринад жашылчалар жыпар жыт менен',price:480}
-      ],
-      hot:[
-        {name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:180},
-        {name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:520},
-        {name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:480},
-        {name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:620}
-      ],
-      soups:[
-        {name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:450},
-        {name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:420},
-        {name:'Нарын',desc:'Уй эти менен үй эриштеси',price:480},
-        {name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:520}
-      ],
-      mains:[
-        {name:'Фергана палоосу',desc:'Рассыпчатый күрүч, козунун эти, сабиз, пияз, жыпар жыт',price:580},
-        {name:'Димлама',desc:'Казанда мезгил жашылча менен тушеное эт',price:620},
-        {name:'Козу кебаб',desc:'Тандалган козунун эти мангалда бышырылган',price:750},
-        {name:'Казан-кебаб',desc:'Картошка жана пияз менен казанда жумшак эт',price:680},
-        {name:'Думляма',desc:'Эт жана мезгил жашылча менен катмарлуу рагу',price:650}
-      ],
-      drinks:[
-        {name:'Жашыл чай',desc:'Жаңы демделген, жалбыз менен же таза',price:150},
-        {name:'Кок-чай сүт менен',desc:'Сүт жана туз менен көчмөн чайы',price:180},
-        {name:'Таза сок',desc:'Апельсин, алма же анар — тандооңуз боюнча',price:320},
-        {name:'Андалус лимонады',desc:'Базилик жана кулпунай менен авторлук лимонад',price:280},
-        {name:'Айран',desc:'Салттуу сергиткич кымыздан жасалган напиток',price:180}
-      ]
+      cold:[{name:'Ачык-чучук',desc:'Таза помидор, пияз, жашыл калемпир, кинза жана базилик',price:350},{name:'Шакароб',desc:'Помидор жана пияз, базилик, зайтун майы',price:320},{name:'Жаш жашылча салат',desc:'Кыяр, помидор, калемпир, жашылча, үй каймагы',price:380},{name:'Эт кесилиши',desc:'Ар түрдүү кептирилген эт жана тамак-аш ассортименти',price:950},{name:'Жашылча кесилиши',desc:'Таза жана маринад жашылчалар жыпар жыт менен',price:480}],
+      hot:[{name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:180},{name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:520},{name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:480},{name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:620}],
+      soups:[{name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:450},{name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:420},{name:'Нарын',desc:'Уй эти менен үй эриштеси',price:480},{name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:520}],
+      mains:[{name:'Фергана палоосу',desc:'Рассыпчатый күрүч, козунун эти, сабиз, пияз, жыпар жыт',price:580},{name:'Димлама',desc:'Казанда мезгил жашылча менен тушеное эт',price:620},{name:'Козу кебаб',desc:'Тандалган козунун эти мангалда бышырылган',price:750},{name:'Казан-кебаб',desc:'Картошка жана пияз менен казанда жумшак эт',price:680},{name:'Думляма',desc:'Эт жана мезгил жашылча менен катмарлуу рагу',price:650}],
+      drinks:[{name:'Жашыл чай',desc:'Жаңы демделген, жалбыз менен же таза',price:150},{name:'Кок-чай сүт менен',desc:'Сүт жана туз менен көчмөн чайы',price:180},{name:'Таза сок',desc:'Апельсин, алма же анар — тандооңуз боюнча',price:320},{name:'Андалус лимонады',desc:'Базилик жана кулпунай менен авторлук лимонад',price:280},{name:'Айран',desc:'Салттуу сергиткич кымыздан жасалган напиток',price:180}]
     }
   }
 };
 
 const CAT_IDS=['cold','hot','soups','mains','drinks'];
 const EMOJIS={cold:'🥗',hot:'🥟',soups:'🍲',mains:'🍛',drinks:'🍵'};
-let lang='ru', curCat=null, greetTimer=null;
-let cart={};
+let lang='ru',curCat=null,greetTimer=null,dotTimer=null,cart={};
 
-// ── LANG ──
 function setLang(l,btn){
   lang=l;
   const label=btn.textContent.trim();
@@ -499,14 +466,22 @@ function applyI18n(){
   const t=T[lang];
   document.querySelectorAll('[data-i18n]').forEach(el=>{if(t[el.dataset.i18n])el.textContent=t[el.dataset.i18n]});
 }
-function updateItemsTitle(){
-  document.getElementById('i-title').textContent=T[lang].cats[curCat];
+function updateItemsTitle(){document.getElementById('i-title').textContent=T[lang].cats[curCat]}
+
+function startDots(){
+  clearInterval(dotTimer);let step=0;
+  const dots=document.querySelectorAll('.dot');
+  dots.forEach(d=>d.classList.remove('active'));
+  dots[0].classList.add('active');
+  dotTimer=setInterval(()=>{
+    step++;
+    dots.forEach((d,i)=>d.classList.toggle('active',i<=step));
+    if(step>=3)clearInterval(dotTimer);
+  },1000);
 }
 
-// ── TRANSITIONS ──
 function goTo(fromId,toId,dir){
-  const from=document.getElementById(fromId);
-  const to=document.getElementById(toId);
+  const from=document.getElementById(fromId),to=document.getElementById(toId);
   to.classList.remove('hidden');to.style.opacity='0';to.style.pointerEvents='none';
   from.classList.add(dir==='up'?'do-exit-up':'do-exit-down');
   setTimeout(()=>{
@@ -516,49 +491,40 @@ function goTo(fromId,toId,dir){
     to.scrollTop=0;
     const sc=to.querySelector('.scroll-area');if(sc)sc.scrollTop=0;
     setTimeout(()=>to.classList.remove('do-enter-up','do-enter-down'),700);
-    if(toId==='s2'){clearTimeout(greetTimer);greetTimer=setTimeout(()=>goTo('s2','s3','up'),4000)}
+    if(toId==='s2'){clearTimeout(greetTimer);startDots();greetTimer=setTimeout(()=>goTo('s2','s3','up'),5000)}
     if(toId==='s3')buildCats();
     if(toId==='s5')renderCart();
   },360);
 }
 
-// ── CATEGORIES ──
 function buildCats(){
   const grid=document.getElementById('cats-grid');grid.innerHTML='';
-  const t=T[lang];
   CAT_IDS.forEach((id,i)=>{
     const c=document.createElement('div');
     c.className='cat-card';c.style.animationDelay=(0.05+i*0.09)+'s';
     c.onclick=()=>openCat(id);
     c.innerHTML=`<img class="cat-bg-img" src="${IMGS.cats[id]}" alt="" loading="lazy" onerror="this.style.display='none'">
-      <div class="cat-ov"><div class="cat-name">${t.cats[id]}</div><div class="cat-acc"></div></div>`;
+      <div class="cat-ov"><div class="cat-name">${T[lang].cats[id]}</div><div class="cat-acc"></div></div>`;
     grid.appendChild(c);
   });
 }
 function openCat(id){curCat=id;renderDishes(id);updateItemsTitle();goTo('s3','s4','up')}
 
-// ── DISHES ──
 function renderDishes(id){
-  const dishes=T[lang].dishes[id]||[];
-  const imgs=IMGS.dishes[id]||[];
+  const dishes=T[lang].dishes[id]||[],imgs=IMGS.dishes[id]||[];
   const list=document.getElementById('dishes-list');list.innerHTML='';
   dishes.forEach((d,i)=>{
-    const key=id+'_'+i;
-    const qty=cart[key]?cart[key].qty:0;
+    const key=id+'_'+i,qty=cart[key]?cart[key].qty:0;
     const c=document.createElement('div');
     c.className='dish-card';c.style.animationDelay=(i*0.07)+'s';c.id='dc-'+key;
-    const emoji=EMOJIS[id]||'🍽';
-    const imgUrl=imgs[i]||'';
+    const emoji=EMOJIS[id]||'🍽',imgUrl=imgs[i]||'';
     c.innerHTML=`<div class="dish-img dish-shimmer" id="di-${key}">
         <img src="${imgUrl}" alt="${d.name}" loading="lazy"
           onload="this.parentElement.classList.remove('dish-shimmer')"
           onerror="this.parentElement.classList.remove('dish-shimmer');this.style.display='none';this.parentElement.innerHTML='<div class=dish-img-fallback>${emoji}</div>'">
       </div>
       <div class="dish-info">
-        <div>
-          <div class="dish-name">${d.name}</div>
-          <div class="dish-desc">${d.desc}</div>
-        </div>
+        <div><div class="dish-name">${d.name}</div><div class="dish-desc">${d.desc}</div></div>
         <div class="dish-bottom">
           <div class="dish-price">${d.price} сом</div>
           <div id="ctrl-${key}">${renderCtrl(key,qty)}</div>
@@ -567,70 +533,43 @@ function renderDishes(id){
     list.appendChild(c);
   });
 }
-
 function renderCtrl(key,qty){
-  if(qty===0) return `<button class="add-btn" onclick="addItem('${key}',event)">+ ДОБАВИТЬ</button>`;
-  return `<div class="qty-ctrl">
-    <button class="qty-btn" onclick="changeQty('${key}',-1,event)">−</button>
-    <div class="qty-num">${qty}</div>
-    <button class="qty-btn" onclick="changeQty('${key}',1,event)">+</button>
-  </div>`;
+  if(qty===0)return`<button class="add-btn" onclick="addItem('${key}',event)">+ ДОБАВИТЬ</button>`;
+  return`<div class="qty-ctrl"><button class="qty-btn" onclick="changeQty('${key}',-1,event)">−</button><div class="qty-num">${qty}</div><button class="qty-btn" onclick="changeQty('${key}',1,event)">+</button></div>`;
 }
-
 function addItem(key,e){
-  const [catId,idx]=key.split('_');
-  const d=T[lang].dishes[catId][idx];
-  const imgUrl=(IMGS.dishes[catId]||[])[idx]||'';
+  const[catId,idx]=key.split('_'),d=T[lang].dishes[catId][idx],imgUrl=(IMGS.dishes[catId]||[])[idx]||'';
   cart[key]={name:d.name,price:d.price,imgUrl,emoji:EMOJIS[catId]||'🍽',qty:1};
   refreshCtrl(key);updateBadge();spawnFloat(e);
 }
 function changeQty(key,delta,e){
-  if(!cart[key])return;
-  cart[key].qty+=delta;
+  if(!cart[key])return;cart[key].qty+=delta;
   if(cart[key].qty<=0)delete cart[key];
-  refreshCtrl(key);updateBadge();
-  if(delta>0&&e)spawnFloat(e);
+  refreshCtrl(key);updateBadge();if(delta>0&&e)spawnFloat(e);
 }
-function refreshCtrl(key){
-  const el=document.getElementById('ctrl-'+key);
-  if(el)el.innerHTML=renderCtrl(key,cart[key]?cart[key].qty:0);
-}
+function refreshCtrl(key){const el=document.getElementById('ctrl-'+key);if(el)el.innerHTML=renderCtrl(key,cart[key]?cart[key].qty:0)}
 function updateBadge(){
   const total=Object.values(cart).reduce((s,i)=>s+i.qty,0);
   const b=document.getElementById('cart-badge');
   if(b){b.textContent=total;b.classList.toggle('show',total>0);}
 }
 function spawnFloat(e){
-  const label=document.createElement('div');
-  label.className='float-label';label.textContent='+1';
+  const label=document.createElement('div');label.className='float-label';label.textContent='+1';
   const rect=e.target.getBoundingClientRect();
-  label.style.left=(rect.left+rect.width/2-10)+'px';
-  label.style.top=(rect.top-10)+'px';
-  document.body.appendChild(label);
-  setTimeout(()=>label.remove(),700);
+  label.style.left=(rect.left+rect.width/2-10)+'px';label.style.top=(rect.top-10)+'px';
+  document.body.appendChild(label);setTimeout(()=>label.remove(),700);
 }
-
-// ── CART ──
 function renderCart(){
-  const list=document.getElementById('cart-list');
-  const footer=document.getElementById('cart-footer');
-  const items=Object.entries(cart);
+  const list=document.getElementById('cart-list'),footer=document.getElementById('cart-footer'),items=Object.entries(cart);
   list.innerHTML='';footer.innerHTML='';
-  if(!items.length){
-    list.innerHTML=`<div class="cart-empty">${T[lang].cart_empty}</div>`;
-    return;
-  }
+  if(!items.length){list.innerHTML=`<div class="cart-empty">${T[lang].cart_empty}</div>`;return;}
   items.forEach(([key,item],i)=>{
-    const c=document.createElement('div');
-    c.className='cart-item';c.style.animationDelay=(i*0.05)+'s';
+    const c=document.createElement('div');c.className='cart-item';c.style.animationDelay=(i*0.05)+'s';
     const imgHtml=item.imgUrl
       ?`<div class="ci-img"><img src="${item.imgUrl}" alt="${item.name}" loading="lazy" onerror="this.parentElement.outerHTML='<div class=ci-emoji>${item.emoji}</div>'"></div>`
       :`<div class="ci-emoji">${item.emoji}</div>`;
     c.innerHTML=`${imgHtml}
-      <div class="ci-info">
-        <div class="ci-name">${item.name}</div>
-        <div class="ci-price">${item.price*item.qty} сом</div>
-      </div>
+      <div class="ci-info"><div class="ci-name">${item.name}</div><div class="ci-price">${item.price*item.qty} сом</div></div>
       <div class="ci-right">
         <div class="qty-ctrl">
           <button class="qty-btn" onclick="cartQty('${key}',-1)">−</button>
@@ -642,26 +581,14 @@ function renderCart(){
     list.appendChild(c);
   });
   const total=Object.values(cart).reduce((s,i)=>s+i.price*i.qty,0);
-  footer.innerHTML=`<div class="cart-footer">
-    <div class="cart-divider"></div>
-    <div class="cart-total-row">
-      <span class="cart-total-lbl">${T[lang].total}</span>
-      <span class="cart-total-val">${total} сом</span>
-    </div>
-    <p class="cart-note">— ${T[lang].cart_note} —</p>
-  </div>`;
+  footer.innerHTML=`<div class="cart-footer"><div class="cart-divider"></div><div class="cart-total-row"><span class="cart-total-lbl">${T[lang].total}</span><span class="cart-total-val">${total} сом</span></div><p class="cart-note">— ${T[lang].cart_note} —</p></div>`;
 }
 function cartQty(key,delta){
-  if(!cart[key])return;
-  cart[key].qty+=delta;
+  if(!cart[key])return;cart[key].qty+=delta;
   if(cart[key].qty<=0)delete cart[key];
-  updateBadge();renderCart();
-  if(curCat)renderDishes(curCat);
+  updateBadge();renderCart();if(curCat)renderDishes(curCat);
 }
-function cartDel(key){
-  delete cart[key];updateBadge();renderCart();
-  if(curCat)renderDishes(curCat);
-}
+function cartDel(key){delete cart[key];updateBadge();renderCart();if(curCat)renderDishes(curCat)}
 
 buildCats();
 </script>
