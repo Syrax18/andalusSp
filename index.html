@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -49,7 +49,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 /* S1 — крупный логотип по центру */
 .site-logo{display:block;width:min(280px,72vw);height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
 /* Хедеры S2-S6 — заметно крупнее */
-.site-logo-sm{display:block;width:90px;height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
+.site-logo-sm{display:block;width:90px;height:auto;object-fit:contain;filter:contrast(1.1) brightness(1.8)}
 
 /* ══ S1 ══ */
 #s1{background:var(--black);text-align:center;z-index:10}
@@ -155,7 +155,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .i-header{width:100%;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0;position:relative;z-index:100}
 .back-btn{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .2s,transform .2s;border-radius:2px}
 .back-btn:hover,.back-btn:active{background:rgba(139,26,26,.2);transform:translateX(-2px)}
-.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;position:absolute;left:0;right:0;text-align:center;white-space:nowrap;overflow:hidden;pointer-events:none}
 .dishes-list{padding:14px 12px 80px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .dish-card{display:grid;grid-template-columns:92px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s;animation:fadeUp .4s ease both;border-radius:2px}
 .dish-img{width:92px;height:92px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1010,#0f0606);overflow:hidden;flex-shrink:0;position:relative}
@@ -272,7 +272,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
       </div>
     </div>
     <div class="greet-block">
-      <div class="greet-name" data-i18n="greet_label">ДОБРО ПОЖАЛОВАТЬ В</div>
+      <div class="greet-name" data-i18n="greet_label">Здравствуйте!</div>
       <div class="greet-text" data-i18n="greeting_text">Рады видеть вас в AndaluS</div>
     </div>
     <div class="progress-dots" id="prog-dots">
@@ -294,7 +294,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 <!-- S3 MENU -->
 <div class="screen hidden" id="s3">
   <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(100,20,20,.15) 0%,transparent 70%)"></div>
-  <div class="m-header">
+  <div class="m-header" style="position:relative;z-index:100">
     <img src="logo.png" alt="AndaluS" class="site-logo-sm">
     <div class="lang-drop" onclick="toggleLang(this)">
       <span class="lang-cur">Русский ▾</span>
@@ -447,7 +447,7 @@ const T={
     menu_btn_label:'Менюну ачуу',menu_title:'МЕНЮ',
     contacts_btn:'БАЙЛАНЫШ',your_order:'БУЙРУТМА',contacts_title:'БАЙЛАНЫШ',
     phone_label:'ТЕЛЕФОН',or_find_us:'БИЗ ЖАЙГАШКАН',address_label:'ДАРЕК',
-    address_val:'Манас көч., 40, Бишкек',work_hours_label:'Сизди күн сайын күтөбүз',
+    address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Сизди күн сайын күтөбүз',
     work_hours_val:'Дш–Жш: 11:00 — 23:00',
     total:'ЖЫЙЫНТЫК',cart_note:'Бул экранды официантка көрсөтүңүз',cart_empty:'Себет бош',
     cats:{cold:'СУУК ТАМАКТАР',hot:'ЫСЫК ТАМАКТАР',soups:'ШОРПОЛОР',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
