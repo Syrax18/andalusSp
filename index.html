@@ -38,16 +38,18 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .scroll-area{flex:1;overflow-y:auto;width:100%;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:2px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
-.lang-sw{display:flex;align-items:center;border:1px solid rgba(201,168,76,0.28);overflow:hidden;border-radius:2px}
-.lang-opt{padding:6px 12px;font-size:11px;font-family:'Jost',sans-serif;letter-spacing:0.08em;color:var(--text-dim);background:transparent;border:none;cursor:pointer;transition:background .2s,color .2s}
-.lang-opt.active{background:rgba(201,168,76,0.18);color:var(--gold)}
-.lang-sep{width:1px;height:18px;background:rgba(201,168,76,0.22)}
+.lang-drop{position:relative;cursor:pointer;user-select:none}
+.lang-cur{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--gold);border:1px solid rgba(201,168,76,.3);padding:6px 14px;border-radius:2px;display:block;background:rgba(10,8,6,.7);backdrop-filter:blur(8px)}
+.lang-menu{display:none;position:absolute;top:calc(100% + 4px);right:0;background:rgba(15,10,8,.97);border:1px solid rgba(201,168,76,.25);border-radius:2px;min-width:120px;z-index:999}
+.lang-menu div{padding:10px 16px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.1em;color:var(--text-dim);transition:background .2s,color .2s}
+.lang-menu div:hover{background:rgba(201,168,76,.1);color:var(--gold)}
+.lang-drop.open .lang-menu{display:block}
 
 /* ══ LOGO ══ */
 /* S1 — крупный логотип по центру */
 .site-logo{display:block;width:min(280px,72vw);height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
 /* Хедеры S2-S6 — заметно крупнее */
-.site-logo-sm{display:block;width:90px;height:auto;object-fit:contain;filter:contrast(1.1) brightness(1.8)}
+.site-logo-sm{display:block;width:90px;height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
 
 /* ══ S1 ══ */
 #s1{background:var(--black);text-align:center;z-index:10}
@@ -150,10 +152,10 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 /* ══ S4 ITEMS ══ */
 #s4{z-index:7;background:var(--dark)}
-.i-header{width:100%;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0;position:relative}
+.i-header{width:100%;padding:12px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0}
 .back-btn{background:none;border:1px solid rgba(201,168,76,.3);color:var(--gold);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;flex-shrink:0;transition:background .2s,transform .2s;border-radius:2px}
 .back-btn:hover,.back-btn:active{background:rgba(139,26,26,.2);transform:translateX(-2px)}
-.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;position:absolute;left:56px;right:56px;text-align:center;white-space:nowrap;overflow:hidden;pointer-events:none}
+.i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dishes-list{padding:14px 12px 80px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
 .dish-card{display:grid;grid-template-columns:92px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s;animation:fadeUp .4s ease both;border-radius:2px}
 .dish-img{width:92px;height:92px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1010,#0f0606);overflow:hidden;flex-shrink:0;position:relative}
@@ -222,10 +224,12 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 <!-- S1 WELCOME -->
 <div class="screen" id="s1">
   <div class="s1-lang">
-    <div class="lang-sw">
-      <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
-      <div class="lang-sep"></div>
-      <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+    <div class="lang-drop" onclick="toggleLang(this)">
+      <span class="lang-cur">Русский ▾</span>
+      <div class="lang-menu">
+        <div onclick="setLang('ru',this);event.stopPropagation()" data-label="Русский">Русский</div>
+        <div onclick="setLang('ky',this);event.stopPropagation()" data-label="Кыргызча">Кыргызча</div>
+      </div>
     </div>
   </div>
   <div class="s1-inner">
@@ -238,7 +242,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
     <div class="w-sub" data-i18n="welcome_sub">Откройте мир восточных вкусов</div>
     <div class="orn-line"><div class="ln"></div><div class="di"></div><div class="ln"></div></div>
     <button class="enter-btn" onclick="goTo('s1','s2','up')" data-i18n="enter_btn">ВОЙТИ В МЕНЮ</button>
-    <div class="insta-tag">@andalus.kg</div>
+    <div class="insta-tag">@andalus_bishkek</div>
   </div>
 </div>
 
@@ -248,10 +252,12 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   <div class="g-content">
     <div class="g-header">
       <img src="logo.png" alt="AndaluS" class="site-logo-sm">
-      <div class="lang-sw">
-        <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
-        <div class="lang-sep"></div>
-        <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+      <div class="lang-drop" onclick="toggleLang(this)">
+        <span class="lang-cur">Русский ▾</span>
+        <div class="lang-menu">
+          <div onclick="setLang('ru',this);event.stopPropagation()" data-label="Русский">Русский</div>
+          <div onclick="setLang('ky',this);event.stopPropagation()" data-label="Кыргызча">Кыргызча</div>
+        </div>
       </div>
     </div>
     <div class="h-area">
@@ -266,7 +272,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
       </div>
     </div>
     <div class="greet-block">
-      <div class="greet-name" data-i18n="greet_label">Здравствуйте!</div>
+      <div class="greet-name" data-i18n="greet_label">ДОБРО ПОЖАЛОВАТЬ В</div>
       <div class="greet-text" data-i18n="greeting_text">Рады видеть вас в AndaluS</div>
     </div>
     <div class="progress-dots" id="prog-dots">
@@ -290,10 +296,12 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 50% at 50% 100%,rgba(100,20,20,.15) 0%,transparent 70%)"></div>
   <div class="m-header">
     <img src="logo.png" alt="AndaluS" class="site-logo-sm">
-    <div class="lang-sw">
-      <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
-      <div class="lang-sep"></div>
-      <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+    <div class="lang-drop" onclick="toggleLang(this)">
+      <span class="lang-cur">Русский ▾</span>
+      <div class="lang-menu">
+        <div onclick="setLang('ru',this);event.stopPropagation()" data-label="Русский">Русский</div>
+        <div onclick="setLang('ky',this);event.stopPropagation()" data-label="Кыргызча">Кыргызча</div>
+      </div>
     </div>
   </div>
   <div class="scroll-area">
@@ -320,10 +328,12 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   <div class="i-header">
     <button class="back-btn" onclick="goTo('s4','s3','down')">←</button>
     <div class="i-title" id="i-title"></div>
-    <div class="lang-sw" style="margin-left:auto">
-      <button class="lang-opt active" onclick="setLang('ru',this)">РУС</button>
-      <div class="lang-sep"></div>
-      <button class="lang-opt" onclick="setLang('ky',this)">КЫР</button>
+    <div class="lang-drop" onclick="toggleLang(this)" style="margin-left:auto">
+      <span class="lang-cur">Русский ▾</span>
+      <div class="lang-menu">
+        <div onclick="setLang('ru',this);event.stopPropagation()" data-label="Русский">Русский</div>
+        <div onclick="setLang('ky',this);event.stopPropagation()" data-label="Кыргызча">Кыргызча</div>
+      </div>
     </div>
   </div>
   <div class="scroll-area">
@@ -355,19 +365,19 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
   </div>
   <div class="scroll-area">
     <div class="contacts-body">
-      <a class="contact-card" href="tel:+996000000000" style="animation-delay:.05s">
+      <a class="contact-card" href="tel:+996700000000" style="animation-delay:.05s">
         <div class="contact-icon">📞</div>
         <div class="contact-info">
           <div class="contact-label" data-i18n="phone_label">ТЕЛЕФОН</div>
-          <div class="contact-value">+996 000 000 000</div>
+          <div class="contact-value">+996 700 000 000</div>
         </div>
         <div class="contact-arrow">›</div>
       </a>
-      <a class="contact-card" href="https://instagram.com/andalus.kg" target="_blank" style="animation-delay:.12s">
+      <a class="contact-card" href="https://instagram.com/andalus_bishkek" target="_blank" style="animation-delay:.12s">
         <div class="contact-icon">📸</div>
         <div class="contact-info">
           <div class="contact-label">INSTAGRAM</div>
-          <div class="contact-value">@andalus.kg</div>
+          <div class="contact-value">@andalus_bishkek</div>
         </div>
         <div class="contact-arrow">›</div>
       </a>
@@ -380,7 +390,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
         <div class="contact-icon">📍</div>
         <div class="contact-info">
           <div class="contact-label" data-i18n="address_label">АДРЕС</div>
-          <div class="contact-value" data-i18n="address_val">пр. Тумонбая Байзакова, 141, Манас</div>
+          <div class="contact-value" data-i18n="address_val">ул. Манаса, 40, Бишкек</div>
         </div>
         <div class="contact-arrow">›</div>
       </a>
@@ -418,7 +428,7 @@ const T={
     menu_btn_label:'Открыть меню',menu_title:'МЕНЮ',
     contacts_btn:'КОНТАКТЫ',your_order:'МОЙ ЗАКАЗ',contacts_title:'КОНТАКТЫ',
     phone_label:'ТЕЛЕФОН',or_find_us:'МЫ НАХОДИМСЯ',address_label:'АДРЕС',
-    address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Ждём вас каждый день',
+    address_val:'ул. Манаса, 40, Бишкек',work_hours_label:'Ждём вас каждый день',
     work_hours_val:'Пн–Вс: 11:00 — 23:00',
     total:'ИТОГО',cart_note:'Покажите этот экран официанту',cart_empty:'Корзина пуста',
     cats:{cold:'ХОЛОДНЫЕ ЗАКУСКИ',hot:'ГОРЯЧИЕ ЗАКУСКИ',soups:'СУПЫ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
@@ -437,7 +447,7 @@ const T={
     menu_btn_label:'Менюну ачуу',menu_title:'МЕНЮ',
     contacts_btn:'БАЙЛАНЫШ',your_order:'БУЙРУТМА',contacts_title:'БАЙЛАНЫШ',
     phone_label:'ТЕЛЕФОН',or_find_us:'БИЗ ЖАЙГАШКАН',address_label:'ДАРЕК',
-    address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Сизди күн сайын күтөбүз',
+    address_val:'Манас көч., 40, Бишкек',work_hours_label:'Сизди күн сайын күтөбүз',
     work_hours_val:'Дш–Жш: 11:00 — 23:00',
     total:'ЖЫЙЫНТЫК',cart_note:'Бул экранды официантка көрсөтүңүз',cart_empty:'Себет бош',
     cats:{cold:'СУУК ТАМАКТАР',hot:'ЫСЫК ТАМАКТАР',soups:'ШОРПОЛОР',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
@@ -455,13 +465,19 @@ const CAT_IDS=['cold','hot','soups','mains','drinks'];
 const EMOJIS={cold:'🥗',hot:'🥟',soups:'🍲',mains:'🍛',drinks:'🍵'};
 let lang='ru',curCat=null,greetTimer=null,dotTimer=null,cart={};
 
-function setLang(l,btn){
+function toggleLang(el){el.classList.toggle('open')}
+function setLang(l,el){
   lang=l;
-  const label=btn.textContent.trim();
-  document.querySelectorAll('.lang-opt').forEach(b=>b.classList.toggle('active',b.textContent.trim()===label));
+  const label=el.dataset.label;
+  document.querySelectorAll('.lang-cur').forEach(c=>c.textContent=label+' ▾');
+  document.querySelectorAll('.lang-drop').forEach(d=>d.classList.remove('open'));
   applyI18n();buildCats();
   if(curCat){renderDishes(curCat);updateItemsTitle()}
 }
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.lang-drop'))
+    document.querySelectorAll('.lang-drop').forEach(d=>d.classList.remove('open'));
+});
 function applyI18n(){
   const t=T[lang];
   document.querySelectorAll('[data-i18n]').forEach(el=>{if(t[el.dataset.i18n])el.textContent=t[el.dataset.i18n]});
