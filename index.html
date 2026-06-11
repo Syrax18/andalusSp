@@ -413,10 +413,10 @@ const IMGS={
   },
   dishes:{
     cold:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg'],
-    soups:['https://images.unsplash.com/photo-1547592166-23ac45744acd?w=200&q=70','https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?w=200&q=70','https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=200&q=70','https://images.unsplash.com/photo-1518779578993-ec3579fee39f?w=200&q=70'],
+    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg', 'cheeseburger-premium.jpg', 'double-cheeseburger-premium.jpg'],
+    soups:['','','',''],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    drinks:['https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=200&q=70','https://images.unsplash.com/photo-1544145945-f90425340c7e?w=200&q=70','https://images.unsplash.com/photo-1621263764928-df1444c5e859?w=200&q=70','https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=200&q=70','https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=200&q=70']
+    drinks:['','','','','']
   }
 };
 
@@ -442,10 +442,12 @@ const T={
       {name:'Порсион тавук донер',desc:'Мясо куриное, рис, салат, фри',price:510},
       {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590}],
       burgers:[
-      {name:'Бургер с говядиной',desc:'Сочная говяжья котлета, сыр, салат, томат, фирменный соус',price:450},
-      {name:'Чикен бургер',desc:'Хрустящая куриная котлета, маринованные огурцы, салат, соус',price:380},
-      {name:'Картошка фри',desc:'Хрустящий картофель фри с кетчупом',price:180},
-      {name:'Двойной бургер',desc:'Две говяжьи котлеты, сыр, салат, томат, фирменный соус',price:550}],
+      {name:'Бургер',desc:'котлета, листья салата, помидор, соленые огурцы',price:260},
+      {name:'Бургер Andalus',desc:'Котлета фирменная, сыр моцарелла, сыр чеддер, огурцы маринованные, помидоры, листься салата, соус фирменный',price:300},
+      {name:'Картошка фри',desc:'Картофель фри с кетчупом',price:180},
+      {name:'Двойной бургер',desc:'Две говяжьи котлеты, сыр, салат, томат, фирменный соус',price:370},
+      {name:'Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:260},
+      {name:'Двойной Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:350}],
       soups:[{name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},{name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},{name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},{name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}],
       mains:[
       {name:'Пилав усту донер',desc:'Мясо говядина, фри, рис, салат',price:560},
@@ -482,9 +484,7 @@ const T={
       {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590}],
       burgers:[{name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:180},{name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:520},{name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:480},{name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:620}],
       soups:[{name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:450},{name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:420},{name:'Нарын',desc:'Уй эти менен үй эриштеси',price:480},{name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:520}],
-      mains:[{name:'Говядинадан бургер',desc:'Ширелүү говядина котлет, быштак, салат, помидор, соус',price:450},
-      {name:'Чикен бургер',desc:'Кытырак куурулган котлет, маринад кыяр, салат, соус',price:380},
-      {name:'Картошка фри',desc:'Кытырак картошка фри кетчуп менен',price:180},
+      mains:[
       {name:'Пилав Усту-донер',desc:'',price:560},
       {name:'Порс-донер',desc:'Говядина жана лаваш менен салттуу турецкое блюдо',price:570},
       {name:'Усту-донер ассорти',desc:'Говядина жана лаваш менен салттуу турецкое блюдо',price:560},
