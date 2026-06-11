@@ -405,7 +405,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 <script>
 const IMGS={
   cats:{
-    cold:'iskender.jpg',
+    cold:'hot.jpg',
     burgers:'burger.jpg',
     soups:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=75',
     mains:'iskender.jpg',
@@ -413,7 +413,7 @@ const IMGS={
   },
   dishes:{
     cold:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg', 'cheeseburger-premium.jpg', 'double-cheeseburger-premium.jpg'],
+    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg', 'cheeseburger-premium.jpg', 'double-cheeseburger-premium.jpg', 'chickencheese-burger.jpg'],
     soups:['','','',''],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
     drinks:['','','','','']
@@ -447,17 +447,24 @@ const T={
       {name:'Картошка фри',desc:'Картофель фри с кетчупом',price:180},
       {name:'Двойной бургер',desc:'Две говяжьи котлеты, сыр, салат, томат, фирменный соус',price:370},
       {name:'Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:260},
-      {name:'Двойной Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:350}],
+      {name:'Двойной Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:350},
+      {name:'Чикен бургер',desc:'Филе куриное, огурцы соленые, помидоры, листья салата',price:260},
+      {name:'Чикен чиз бургер',desc:'Куриная котлета, сыр чеддер, огурцы, помидоры, листья салата',price:240}],
       soups:[{name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},{name:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},{name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},{name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}],
       mains:[
-      {name:'Пилав усту донер',desc:'Мясо говядина, фри, рис, салат',price:560},
-      {name:'Порсион донер',desc:'Мясо говядина, фри, рис, салат',price:570},
-      {name:'Пилав усту донер ассорти',desc:'Мясо говядина, мясо куриное, фри, рис, салат',price:560},
-      {name:'Порсион донер ассорти',desc:'Мясо говядина, мясо куриное, фри, рис, салат',price:560},
-      {name:'Пилав усту тавук донер',desc:'Мясо куриное, фри, рис, салат',price:510},
-      {name:'Порсион тавук донер',desc:'Мясо куриное, рис, салат, фри',price:510},
-      {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590}],
-      drinks:[{name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:150},{name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:180},{name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:320},{name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:280},{name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:180}]
+      {name:'',desc:'',price:0},
+      {name:'',desc:'',price:0},
+      {name:'',desc:'',price:0},
+      {name:'',desc:'',price:0},
+      {name:'',desc:'',price:0},
+      {name:'',desc:'',price:0},
+      {name:'',desc:'',price:0}],
+      drinks:[
+      {name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:150},
+      {name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:180},
+      {name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:320},
+      {name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:280},
+      {name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:180}]
     }
   },
   ky:{
