@@ -451,11 +451,11 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 <script>
 
 const VARIANTS={
-  'Бургер':[{label:'Одинарный',price:260},{label:'Двойной',price:370}],
-  'Чизбургер':[{label:'Одинарный',price:270},{label:'Двойной',price:380}],
-  'Чизбургер премиум':[{label:'Одинарный',price:260},{label:'Двойной',price:350}],
-  'Шаурма куриная':[{label:'Одинарная',price:250},{label:'Двойная',price:360}],
-  'Шаурма говяжая':[{label:'Одинарная',price:270},{label:'Двойная',price:380}],
+  'Бургер':[{label:'Обычный',price:260},{label:'Двойной',price:370}],
+  'Чизбургер':[{label:'Обычный',price:270},{label:'Двойной',price:380}],
+  'Чизбургер премиум':[{label:'Обычный',price:260},{label:'Двойной',price:350}],
+  'Шаурма куриная':[{label:'Обычный',price:250},{label:'Двойная',price:360}],
+  'Шаурма говяжая':[{label:'Обычный',price:270},{label:'Двойная',price:380}],
 };
 let modalDish=null,modalSelectedVariant=null;
 
@@ -507,7 +507,7 @@ const IMGS={
   },
   dishes:{
     cold:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg', 'cheeseburger-premium.jpg', 'double-cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 'cheeseburger.jpg', 'double-cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 'shaurma-assorti.jpg', 'shaurma-zapech.jpg'],
+    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 'cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 'shaurma-assorti.jpg', 'shaurma-zapech.jpg'],
     soups:['','','',''],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
     drinks:['','','','','']
@@ -540,13 +540,10 @@ const T={
       {name:'Бургер',desc:'котлета, листья салата, помидор, соленые огурцы',price:260},
       {name:'Бургер Andalus',desc:'Котлета фирменная, сыр моцарелла, сыр чеддер, огурцы маринованные, помидоры, листься салата, соус фирменный',price:300},
       {name:'Картошка фри',desc:'Картофель фри с кетчупом',price:180},
-      {name:'Двойной бургер',desc:'Две говяжьи котлеты, сыр, салат, томат, фирменный соус',price:370},
       {name:'Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:260},
-      {name:'Двойной Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:350},
       {name:'Чикен бургер',desc:'Филе куриное, огурцы соленые, помидоры, листья салата',price:260},
       {name:'Чикен чиз бургер',desc:'Куриная котлета, сыр чеддер, огурцы, помидоры, листья салата',price:240},
       {name:'Чизбургер',desc:'Котлета, листья салата, помидоры, соленые огурцы, капуста',price:270},
-      {name:'Чизбургер двойной',desc:'Куриная котлета, сыр чеддер, огурцы, помидоры, листья салата',price:380},
       {name:'Шаурма куриная',desc:'Куриное мясо, помидоры, листья салата, соленые огурцы, капуста',price:250},
       {name:'Шаурма говяжая',desc:'Говяжье мясо, помидоры, чипсы, соленые огурцы, капуста',price:270},
       {name:'Шаурма ассорти',desc:'Говяжье мясо, куриное мясо, фри, помидоры, соленые огурцы, соус, сыр, лаваш, капуста',price:270},
