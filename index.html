@@ -198,6 +198,32 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .cart-total-val{font-family:'Cinzel',serif;font-size:22px;color:var(--gold);letter-spacing:.04em}
 .cart-note{font-size:11px;color:var(--text-dim);text-align:center;margin-top:10px;font-weight:300;line-height:1.6;font-style:italic;font-family:'Cormorant Garamond',serif}
 
+/* ══ МОДАЛКА БЛЮДА ══ */
+.dish-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .3s}
+.dish-modal-overlay.open{background:rgba(0,0,0,.65);pointer-events:all}
+.dish-modal{position:fixed;bottom:0;left:0;right:0;background:var(--dark2);border-top:1px solid rgba(201,168,76,.3);border-radius:20px 20px 0 0;z-index:201;transform:translateY(100%);transition:transform .38s cubic-bezier(0.16,1,0.3,1);max-width:500px;margin:0 auto;max-height:85vh;display:flex;flex-direction:column}
+.dish-modal.open{transform:translateY(0)}
+.modal-handle{width:36px;height:3px;background:rgba(201,168,76,.3);border-radius:2px;margin:12px auto 0;flex-shrink:0}
+.modal-img-wrap{width:100%;height:200px;overflow:hidden;flex-shrink:0;position:relative;background:linear-gradient(135deg,#1e1010,#0f0606)}
+.modal-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-img-emoji{display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:64px}
+.modal-body{padding:20px 20px 0;flex:1;overflow-y:auto}
+.modal-name{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--text);font-weight:400;line-height:1.2}
+.modal-desc{font-size:12px;color:var(--text-dim);font-weight:300;margin-top:6px;line-height:1.7}
+.modal-variants{margin-top:18px}
+.modal-variants-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.18em;color:var(--gold-dim);margin-bottom:10px}
+.modal-variants-row{display:flex;gap:8px;flex-wrap:wrap}
+.variant-btn{padding:10px 16px;background:transparent;border:1px solid rgba(201,168,76,.28);color:var(--text-dim);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;border-radius:2px;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:80px}
+.variant-btn.selected{border-color:var(--gold);background:rgba(201,168,76,.1);color:var(--gold)}
+.variant-btn .v-name{font-size:10px}
+.variant-btn .v-price{font-family:'Cinzel',serif;font-size:13px;color:var(--gold)}
+.modal-footer{padding:16px 20px 36px;flex-shrink:0;border-top:1px solid rgba(201,168,76,.1);margin-top:16px}
+.modal-add-btn{width:100%;padding:15px;background:var(--red);border:none;color:#fff;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;cursor:pointer;border-radius:2px;transition:background .2s;display:flex;align-items:center;justify-content:space-between}
+.modal-add-btn:active{background:#5a1212}
+.modal-add-price{font-size:14px;letter-spacing:.04em}
+
+
+
 /* ══ S6 CONTACTS ══ */
 #s6{z-index:5;background:var(--dark)}
 .contacts-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0}
@@ -220,6 +246,26 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 </style>
 </head>
 <body>
+
+<div class="dish-modal-overlay" id="dish-modal-overlay" onclick="closeModal()"></div>
+<div class="dish-modal" id="dish-modal">
+  <div class="modal-handle"></div>
+  <div class="modal-img-wrap" id="modal-img-wrap"></div>
+  <div class="modal-body">
+    <div class="modal-name" id="modal-name"></div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="modal-variants" id="modal-variants" style="display:none">
+      <div class="modal-variants-label">ВЫБЕРИТЕ ВАРИАНТ</div>
+      <div class="modal-variants-row" id="modal-variants-row"></div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-add-btn" id="modal-add-btn" onclick="modalAddToCart()">
+      <span>+ ДОБАВИТЬ</span>
+      <span class="modal-add-price" id="modal-add-price"></span>
+    </button>
+  </div>
+</div>
 
 <!-- S1 WELCOME -->
 <div class="screen" id="s1">
@@ -403,6 +449,54 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 </div>
 
 <script>
+
+const VARIANTS={
+  'Бургер':[{label:'Одинарный',price:260},{label:'Двойной',price:370}],
+  'Чизбургер':[{label:'Одинарный',price:270},{label:'Двойной',price:380}],
+  'Чизбургер премиум':[{label:'Одинарный',price:260},{label:'Двойной',price:350}],
+  'Шаурма куриная':[{label:'Одинарная',price:250},{label:'Двойная',price:360}],
+  'Шаурма говяжая':[{label:'Одинарная',price:270},{label:'Двойная',price:380}],
+};
+let modalDish=null,modalSelectedVariant=null;
+
+function openModal(catId,idx){
+  const d=T[lang].dishes[catId][idx],imgUrl=(IMGS.dishes[catId]||[])[idx]||'',emoji=EMOJIS[catId]||'🍽';
+  modalDish={catId,idx,dish:d,imgUrl,emoji};
+  const imgWrap=document.getElementById('modal-img-wrap');
+  imgWrap.innerHTML=imgUrl?`<img src="${imgUrl}" alt="${d.name}" onerror="this.parentElement.innerHTML='<div class=modal-img-emoji>${emoji}</div>'">`:`<div class="modal-img-emoji">${emoji}</div>`;
+  document.getElementById('modal-name').textContent=d.name;
+  document.getElementById('modal-desc').textContent=d.desc;
+  const variants=VARIANTS[d.name],varBlock=document.getElementById('modal-variants'),varRow=document.getElementById('modal-variants-row');
+  if(variants&&variants.length){
+    varBlock.style.display='block';varRow.innerHTML='';modalSelectedVariant=variants[0];
+    variants.forEach((v,i)=>{
+      const btn=document.createElement('button');btn.className='variant-btn'+(i===0?' selected':'');
+      btn.innerHTML=`<span class="v-name">${v.label}</span><span class="v-price">${v.price} сом</span>`;
+      btn.onclick=()=>{modalSelectedVariant=v;varRow.querySelectorAll('.variant-btn').forEach(b=>b.classList.remove('selected'));btn.classList.add('selected');updateModalPrice()};
+      varRow.appendChild(btn);
+    });
+    updateModalPrice();
+  } else {
+    varBlock.style.display='none';modalSelectedVariant=null;
+    document.getElementById('modal-add-price').textContent=d.price+' сом';
+  }
+  document.getElementById('dish-modal-overlay').classList.add('open');
+  document.getElementById('dish-modal').classList.add('open');
+}
+function updateModalPrice(){document.getElementById('modal-add-price').textContent=(modalSelectedVariant?modalSelectedVariant.price:modalDish.dish.price)+' сом'}
+function closeModal(){document.getElementById('dish-modal-overlay').classList.remove('open');document.getElementById('dish-modal').classList.remove('open')}
+function modalAddToCart(){
+  if(!modalDish)return;
+  const d=modalDish.dish,variant=modalSelectedVariant,price=variant?variant.price:d.price,label=variant?variant.label:null;
+  const key=modalDish.catId+'_'+modalDish.idx+(label?'_'+label:'');
+  if(cart[key])cart[key].qty+=1;
+  else cart[key]={name:d.name+(label?' ('+label+')':''),price,imgUrl:modalDish.imgUrl,emoji:modalDish.emoji,qty:1};
+  updateBadge();
+  const btn=document.getElementById('modal-add-btn');
+  btn.innerHTML='<span>✓ ДОБАВЛЕНО</span>';btn.style.background='#2a6b2a';
+  setTimeout(()=>{btn.innerHTML=`<span>+ ДОБАВИТЬ</span><span class="modal-add-price" id="modal-add-price">${price} сом</span>`;btn.style.background=''},900);
+}
+
 const IMGS={
   cats:{
     cold:'hot.jpg',
@@ -413,7 +507,7 @@ const IMGS={
   },
   dishes:{
     cold:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg', 'cheeseburger-premium.jpg', 'double-cheeseburger-premium.jpg', 'chickencheese-burger.jpg', 'cheeseburger.jpg', 'double-cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 'shaurma-assorti.jpg', 'shaurma-zapech.jpg'],
+    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'double-burger.jpg', 'cheeseburger-premium.jpg', 'double-cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 'cheeseburger.jpg', 'double-cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 'shaurma-assorti.jpg', 'shaurma-zapech.jpg'],
     soups:['','','',''],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
     drinks:['','','','','']
@@ -583,6 +677,8 @@ function renderDishes(id){
     const key=id+'_'+i,qty=cart[key]?cart[key].qty:0;
     const c=document.createElement('div');
     c.className='dish-card';c.style.animationDelay=(i*0.07)+'s';c.id='dc-'+key;
+    c.style.cursor='pointer';
+    c.onclick=(e)=>{if(!e.target.closest('.qty-ctrl')&&!e.target.closest('.add-btn'))openModal(id,i)};
     const emoji=EMOJIS[id]||'🍽',imgUrl=imgs[i]||'';
     c.innerHTML=`<div class="dish-img dish-shimmer" id="di-${key}">
         <img src="${imgUrl}" alt="${d.name}" loading="lazy"
