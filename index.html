@@ -456,6 +456,13 @@ const VARIANTS={
   'Чизбургер премиум':[{label:'Обычный',price:260},{label:'Двойной',price:350}],
   'Шаурма куриная':[{label:'Обычный',price:250},{label:'Двойная',price:360}],
   'Шаурма говяжая':[{label:'Обычный',price:270},{label:'Двойная',price:380}],
+  'Донер':[{label:'куриный',price:250},{label:'говяжий',price:270},{label:'ассорти',price:270}],
+  'Coca Cola':[{label:'0,25 л',price:100},{label:'0,5 л',price:90},{label:'1 л',price:120}],
+  'Fanta':[{label:'0,25 л',price:100},{label:'0,5 л',price:90},{label:'1 л',price:120}],
+  'Sprite':[{label:'0,5 л',price:90},{label:'1 л',price:120}],
+  'Fuse tea':[{label:'0,5 л',price:100},{label:'1 л',price:120}],
+  'Piko':[{label:'0,5 л',price:120},{label:'1 л',price:160}],
+  'Bonaqua':[{label:'0,5 л',price:50},{label:'1 л',price:70}],
 };
 let modalDish=null,modalSelectedVariant=null;
 
@@ -503,14 +510,16 @@ const IMGS={
     burgers:'burger.jpg',
     soups:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=75',
     mains:'iskender.jpg',
-    drinks:'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=75'
+    drinks:'cola.jpg'
   },
   dishes:{
     cold:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 'cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 'shaurma-assorti.jpg', 'shaurma-zapech.jpg'],
+    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 
+    'cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 
+    'shaurma-assorti.jpg', 'shaurma-zapech.jpg', 'tvister-govyadina.jpg', 'tvister-chicken.jpg', 'shaurma-na-tarelke.jpg', 'doner.jpg'],
     soups:['','','',''],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    drinks:['','','','','']
+    drinks:['cola.jpg','fanta.jpg','sprite.jpg','fuse-tea.jpg','piko.jpg','sok.jpg','bonaqua.jpg']
   }
 };
 
@@ -547,7 +556,12 @@ const T={
       {name:'Шаурма куриная',desc:'Куриное мясо, помидоры, листья салата, соленые огурцы, капуста',price:250},
       {name:'Шаурма говяжая',desc:'Говяжье мясо, помидоры, чипсы, соленые огурцы, капуста',price:270},
       {name:'Шаурма ассорти',desc:'Говяжье мясо, куриное мясо, фри, помидоры, соленые огурцы, соус, сыр, лаваш, капуста',price:270},
-      {name:'Шаурма запечённая с сыром',desc:'Мясо, фри, помидоры, огурцы, соус, сыр, лаваш, капуста',price:300}],
+      {name:'Шаурма запечённая с сыром',desc:'Мясо, фри, помидоры, огурцы, соус, сыр, лаваш, капуста',price:300},
+      {name:'Твистер говяжий',desc:'',price:260},
+      {name:'Твистер куриный',desc:'',price:240},
+      {name:'Шаурма на тарелке',desc:'Мясо, помидоры, огурцы, картофель фри, салат, соус',price:340},
+      {name:'Донер',desc:'Мясо, огурцы, помидоры, капуста, чипсы',price:250}
+      ],
       soups:[{name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},{na11me:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},{name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},{name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}],
       mains:[
       {name:'',desc:'',price:0},
@@ -558,11 +572,13 @@ const T={
       {name:'',desc:'',price:0},
       {name:'',desc:'',price:0}],
       drinks:[
-      {name:'Зелёный чай',desc:'Свежезаваренный, с мятой или натуральный',price:150},
-      {name:'Кок-чай с молоком',desc:'Зелёный чай по-кочевому с молоком и щепоткой соли',price:180},
-      {name:'Свежевыжатый сок',desc:'Апельсин, яблоко или гранат — на ваш выбор',price:320},
-      {name:'Лимонад Андалус',desc:'Авторский лимонад с базиликом и клубникой',price:280},
-      {name:'Айран',desc:'Традиционный освежающий кисломолочный напиток',price:180}]
+      {name:'Coca Cola',desc:'1 литр',price:120},
+      {name:'Fanta',desc:'1 литр',price:120},
+      {name:'Sprite',desc:'1 литр',price:120},
+      {name:'Fuse tea',desc:'1 литр',price:120},
+      {name:'Piko',desc:'1 литр',price:160},
+      {name:'Сок',desc:'1 литр',price:220},
+      {name:'Bonaqua',desc:'1 литр',price:70},]
     }
   },
   ky:{
