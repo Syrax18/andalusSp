@@ -506,18 +506,18 @@ function modalAddToCart(){
 
 const IMGS={
   cats:{
-    cold:'hot.jpg',
+    hot:'hot.jpg',
     burgers:'burger.jpg',
-    soups:'https://images.unsplash.com/photo-1547592166-23ac45744acd?w=600&q=75',
+    sushi:'set-sladkiy.jpg',
     mains:'iskender.jpg',
-    drinks:'cola.jpg'
+    drinks:'napitki.jpg'
   },
   dishes:{
-    cold:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
+    hot:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
     burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 
     'cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 
     'shaurma-assorti.jpg', 'shaurma-zapech.jpg', 'tvister-govyadina.jpg', 'tvister-chicken.jpg', 'shaurma-na-tarelke.jpg', 'doner.jpg'],
-    soups:['','','',''],
+    sushi:['set-unagi.jpg','set-sladkiy.jpg','set-sake.jpg','set-zapechenniy2.jpg', 'set-mini.jpg', 'set-mini-tempura.jpg', 'set-zapechenniy.jpg'],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
     drinks:['cola.jpg','fanta.jpg','sprite.jpg','fuse-tea.jpg','piko.jpg','sok.jpg','bonaqua.jpg']
   }
@@ -534,9 +534,9 @@ const T={
     address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Ждём вас каждый день',
     work_hours_val:'Пн–Вс: 10:00 — 23:00',
     total:'ИТОГО',cart_note:'Покажите этот экран официанту',cart_empty:'Корзина пуста',
-    cats:{cold:'ГОРЯЧИЕ БЛЮДА',burgers:'БУРГЕРЫ',soups:'СУПЫ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
+    cats:{hot:'ГОРЯЧИЕ БЛЮДА',burgers:'БУРГЕРЫ',sushi:'СУШИ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
     dishes:{
-      cold:[
+      hot:[
       {name:'Пилав усту донер',desc:'Мясо говядина, фри, рис, салат',price:560},
       {name:'Порсион донер',desc:'Мясо говядина, фри, рис, салат',price:570},
       {name:'Пилав усту донер ассорти',desc:'Мясо говядина, мясо куриное, фри, рис, салат',price:560},
@@ -562,7 +562,20 @@ const T={
       {name:'Шаурма на тарелке',desc:'Мясо, помидоры, огурцы, картофель фри, салат, соус',price:340},
       {name:'Донер',desc:'Мясо, огурцы, помидоры, капуста, чипсы',price:250}
       ],
-      soups:[{name:'Шурпа',desc:'Наваристый суп из баранины с овощами и восточными пряностями',price:450},{na11me:'Мастава',desc:'Густой рисовый суп с говядиной и свежими овощами',price:420},{name:'Нарин',desc:'Суп из говядины с домашней тянутой лапшой',price:480},{name:'Лагман',desc:'Тянутая лапша с мясом и овощами в густом бульоне',price:520}],
+      sushi:[
+      {name:'',desc:'',price:450},
+      {name:'',desc:'',price:420},
+      {divider:'СЕТЫ'},
+      {name:'Сет Унаги',desc:'Запеченный унаги, Токио, Патай',price:1130},
+      {name:'Сет Сладкий',desc:'Шоколадный, Сладкий, Ролл карамельный, Ролл с клубникой',price:1100},
+      {name:'Сет Сяке',desc:'Филодельфия запеченная, Сяки Мяки, Канада, киото',price:1220},
+      {name:'Сет Запеченная 2',desc:'Ойси ролл, Запеч. курица, Дабл жапан, Запеч. лосось',price:1430},
+      {name:'Мини сет',desc:'калифорния 0,5, филодельфия 0,5, сяке маки 0,5, унаги маки 0,5',price:580},
+      {name:'Мини сет запеченный',desc:'Запеченная курица 0,5, СПА 0,5, Запеченная филодельфия 0,5, Запеченный лосось 0,5',price:640},
+      {name:'Мини сет темпура',desc:'Патай 0,5, Дабл чиз 0,5, Запеченный темпура 0,5, Темпура фурай 0,5',price:740},
+      {name:'Сет Запеченный',desc:'Калифорния хот, спа, фласкай, запеченная курица',price:1100},
+      
+      ],
       mains:[
       {name:'',desc:'',price:0},
       {name:'',desc:'',price:0},
@@ -591,9 +604,9 @@ const T={
     address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Сизди күн сайын күтөбүз',
     work_hours_val:'Дш–Жш: 11:00 — 23:00',
     total:'ЖЫЙЫНТЫК',cart_note:'Бул экранды официантка көрсөтүңүз',cart_empty:'Себет бош',
-    cats:{cold:'ЫСЫК ТАМАКТАР',burgers:'БУРГЕРЛЕР',soups:'ШОРПОЛОР',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
+    cats:{hot:'ЫСЫК ТАМАКТАР',burgers:'БУРГЕРЛЕР',sushi:'СУШИ',mains:'НЕГИЗГИ ТАМАКТАР',drinks:'СУУСУНДУКТАР'},
     dishes:{
-      cold:[{name:'Говядинадан бургер',desc:'Ширелүү говядина котлет, быштак, салат, помидор, соус',price:450},
+      hot:[{name:'Говядинадан бургер',desc:'Ширелүү говядина котлет, быштак, салат, помидор, соус',price:450},
       {name:'Чикен бургер',desc:'Кытырак куурулган котлет, маринад кыяр, салат, соус',price:380},
       {name:'Картошка фри',desc:'Кытырак картошка фри кетчуп менен',price:180},
       {name:'Пилав Усту-донер',desc:'',price:560},
@@ -604,7 +617,7 @@ const T={
       {name:'Порсион тавук донер',desc:'Курка жана жашылча менен жыпар жыт күрүч',price:510},
       {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590}],
       burgers:[{name:'Самса',desc:'Катмарлуу камыр, кыйма эт пияз менен. Тандырдан жаңы',price:180},{name:'Манты',desc:'Буу менен жасалган, эт жана аш кабак менен',price:520},{name:'Чучвара',desc:'Кичине пельмени жыпар жыт сорпосу менен',price:480},{name:'Люля-кебаб',desc:'Таяктагы кыйма эт, таза жашылча, лаваш',price:620}],
-      soups:[{name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:450},{name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:420},{name:'Нарын',desc:'Уй эти менен үй эриштеси',price:480},{name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:520}],
+      sushi:[{name:'Шурпа',desc:'Козунун эти менен жашылча жана чыгыш жыпар жыт',price:450},{name:'Мастава',desc:'Уй эти жана жаш жашылча менен күрүч шорпосу',price:420},{name:'Нарын',desc:'Уй эти менен үй эриштеси',price:480},{name:'Лагман',desc:'Тартылган эрише эт жана жашылча менен',price:520}],
       mains:[
       {name:'Пилав Усту-донер',desc:'',price:560},
       {name:'Порс-донер',desc:'Говядина жана лаваш менен салттуу турецкое блюдо',price:570},
@@ -618,8 +631,8 @@ const T={
   }
 };
 
-const CAT_IDS=['cold','burgers','soups','mains','drinks'];
-const EMOJIS={cold:'🥗',burgers:'🍔',soups:'🍲',mains:'🍛',drinks:'🍵'};
+const CAT_IDS=['hot','burgers','sushi','mains','drinks'];
+const EMOJIS={hot:'🔥',burgers:'🍔',sushi:'🍣',mains:'🍛',drinks:'🍵'};
 let lang='ru',curCat=null,greetTimer=null,dotTimer=null,cart={};
 
 function toggleLang(el){el.classList.toggle('open')}
@@ -687,6 +700,13 @@ function renderDishes(id){
   const dishes=T[lang].dishes[id]||[],imgs=IMGS.dishes[id]||[];
   const list=document.getElementById('dishes-list');list.innerHTML='';
   dishes.forEach((d,i)=>{
+    if(d.divider){
+      const sep=document.createElement('div');
+      sep.style.cssText='width:100%;display:flex;align-items:center;gap:12px;padding:8px 0';
+      sep.innerHTML=`<div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.3))"></div><div style="font-family:Cinzel,serif;font-size:9px;letter-spacing:.22em;color:var(--gold-dim);white-space:nowrap">${d.divider}</div><div style="flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,.3),transparent)"></div>`;
+      list.appendChild(sep);
+      return;
+    }
     const key=id+'_'+i,qty=cart[key]?cart[key].qty:0;
     const c=document.createElement('div');
     c.className='dish-card';c.style.animationDelay=(i*0.07)+'s';c.id='dc-'+key;
