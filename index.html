@@ -313,7 +313,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
           <div class="light-orb lo1"></div>
           <div class="light-orb lo2"></div>
           <div class="light-orb lo3"></div>
-          <img class="hostess-actual" src="hostess.jpg" alt="Hostess" onerror="this.style.display='none'">
+          <img class="hostess-actual" src="hostess.webp" alt="Hostess" onerror="this.style.display='none'">
         </div>
       </div>
     </div>
@@ -531,12 +531,60 @@ const IMGS={
     drinks:'napitki.webp'
   },
   dishes:{
-    hot:['iskender.webp', 'ustu-doner.webp','pors-doner.webp','ustu-assorti.webp', 'pors-assorti.webp', 'pilav-tavuk.webp', 'pors-tavuk.webp'],
-    burgers:['burger.webp','burger-andalus.webp', 'cheeseburger-premium.webp', 'chicken-burger.webp', 'chickencheese-burger.webp', 
-    'cheeseburger.webp', 'shaurma-chicken.webp', 'shaurma-govyadina.webp', 
-    'shaurma-assorti.webp', 'shaurma-zapech.webp', 'tvister-govyadina.webp', 'tvister-chicken.webp', 'shaurma-na-tarelke.webp', 'doner.webp', 'fries.webp'],
-    sushi:['set-unagi.webp','set-sladkiy.webp','set-sake.webp','set-zapechenniy2.webp', 'set-mini.webp', 'set-mini-tempura.webp', 
-    'set-zapechenniy.webp', 'set-tempura.webp', 'set-filadelfia.webp','set-mini-filadelfia.webp', 'set-perekus.webp', 'set-tempura2.webp', 'set-assorti.webp', 'set-assorti2.webp', 'set-sous-ray.webp', 'set-andalus.webp'],
+    hot:[
+      'iskender.webp',
+      'ustu-doner.webp',
+      'pors-doner.webp',
+      'ustu-assorti.webp',
+      'pors-assorti.webp',
+      'pilav-tavuk.webp',
+      'pors-tavuk.webp'
+    ],
+    burgers:[
+      '',
+      'burger.webp',
+      'burger-andalus.webp',
+      'cheeseburger-premium.webp',
+      'chicken-burger.webp',
+      'chickencheese-burger.webp', 
+      'cheeseburger.webp',
+      '',
+      'shaurma-chicken.webp',
+      'shaurma-govyadina.webp', 
+      'shaurma-assorti.webp',
+      'shaurma-zapech.webp',
+      'tvister-govyadina.webp',
+      'tvister-chicken.webp',
+      'shaurma-na-tarelke.webp',
+      'doner.webp',
+      '',
+      'fries.webp'
+    ],
+    sushi:[
+      '',
+      'fila-hot.webp',
+      'flaskay.webp',
+      '',
+      'set-unagi.webp',
+      'set-sladkiy.webp',
+      'set-sake.webp',
+      'set-zapechenniy2.webp',
+      'set-mini.webp',
+      'set-mini-zapech.webp',
+      'set-mini-tempura.webp', 
+      'set-zapechenniy.webp',
+      'set-tempura.webp',
+      'set-filadelfia.webp',
+      'set-mini-filadelfia.webp',
+      'set-perekus.webp',
+      'set-tempura2.webp',
+      'set-assorti.webp',
+      'set-assorti2.webp',
+      'set-sous-ray.webp',
+      'set-andalus.webp',
+      'set-naslajdenie.webp',
+      'set-vstrecha.webp',
+    ],
     mains:['iskender.webp', 'ustu-doner.webp','pors-doner.webp','ustu-assorti.webp', 'pors-assorti.webp', 'pilav-tavuk.webp', 'pors-tavuk.webp'],
     drinks:['cola.webp','fanta.webp','sprite.webp','fuse-tea.webp','piko.webp','sok.webp','bonaqua.webp']
   }
@@ -585,6 +633,9 @@ const T={
       {name:'Картошка фри',desc:'Картофель фри с кетчупом',price:180},
       ],
       sushi:[
+      {divider:'ЗАПЕЧЕННЫЕ РОЛЛЫ'},
+      {name:'Фила хот',desc:'Сыр, лосось, сырный соус, унаги соус и кунжут белый',price:450},
+      {name:'Фласкай',desc:'Краб, сырный соус, унаги, кунжут белый',price:230},
       {divider:'СЕТЫ'},
       {name:'Сет Унаги',desc:'Запеченный унаги, Токио, Патай',price:1130},
       {name:'Сет Сладкий',desc:'Шоколадный, Сладкий, Ролл карамельный, Ролл с клубникой',price:1100},
@@ -601,8 +652,10 @@ const T={
       {name:'Сет Темпура 2',desc:'Темпура-Фурай, Горячий шик, Дабл чиз, Запеченная темпура',price:1470},
       {name:'Сет Ассорти',desc:'Лавалайт, филадельфия, калифорния крев., калифорния лайт, кунсей, ролл масаго, ролл фетаки',price:2450},
       {name:'Сет Ассорти 2',desc:'Филадельфия, калифорния лайт, запеченный темпура, темпура фурай, горячий шик, ойси ролл, фила хот, запеченный лосось',price:3070},
-      {name:'Сет Соусный рай',desc:'лавалайт, запеченная курица, калифорния лайт, спа',price:1140},
-      {name:'Сет Andalus',desc:'филадельфия делюкс, ролл чеддер, калифорния лосось, фила хот, киото, сяки сушки',price:2160},      
+      {name:'Сет Соусный рай',desc:'Лавалайт, запеченная курица, калифорния лайт, спа',price:1140},
+      {name:'Сет Andalus',desc:'Филадельфия делюкс, ролл чеддер, калифорния лосось, фила хот, киото, сяки сушки',price:2160},
+      {name:'Сет Наслаждение',desc:'Калифорния лайт, филадельфия, ролл масаго, унаги маки, киото',price:1600},
+      {name:'Сет Встреча',desc:'Филадельфия, дабл чиз, ролл масаго',price:1100}      
       ],
       mains:[
       {name:'',desc:'',price:0},
