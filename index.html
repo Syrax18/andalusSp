@@ -514,10 +514,11 @@ const IMGS={
   },
   dishes:{
     hot:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.jpg','burger-andalus.jpg','fries.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 
+    burgers:['burger.jpg','burger-andalus.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 
     'cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 
-    'shaurma-assorti.jpg', 'shaurma-zapech.jpg', 'tvister-govyadina.jpg', 'tvister-chicken.jpg', 'shaurma-na-tarelke.jpg', 'doner.jpg'],
-    sushi:['set-unagi.jpg','set-sladkiy.jpg','set-sake.jpg','set-zapechenniy2.jpg', 'set-mini.jpg', 'set-mini-tempura.jpg', 'set-zapechenniy.jpg'],
+    'shaurma-assorti.jpg', 'shaurma-zapech.jpg', 'tvister-govyadina.jpg', 'tvister-chicken.jpg', 'shaurma-na-tarelke.jpg', 'doner.jpg', 'fries.jpg'],
+    sushi:['set-unagi.jpg','set-sladkiy.jpg','set-sake.jpg','set-zapechenniy2.jpg', 'set-mini.jpg', 'set-mini-tempura.jpg', 
+    'set-zapechenniy.jpg', 'set-tempura.jpg', 'set-filadelfia.jpg','set-mini-filadelfia.jpg', 'set-perekus.jpg', 'set-tempura2.jpg', 'set-assorti.jpg', 'set-assorti2.jpg', 'set-sous-ray.jpg', 'set-andalus.jpg'],
     mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
     drinks:['cola.jpg','fanta.jpg','sprite.jpg','fuse-tea.jpg','piko.jpg','sok.jpg','bonaqua.jpg']
   }
@@ -534,7 +535,7 @@ const T={
     address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Ждём вас каждый день',
     work_hours_val:'Пн–Вс: 10:00 — 23:00',
     total:'ИТОГО',cart_note:'Покажите этот экран официанту',cart_empty:'Корзина пуста',
-    cats:{hot:'ГОРЯЧИЕ БЛЮДА',burgers:'БУРГЕРЫ',sushi:'СУШИ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
+    cats:{hot:'ГОРЯЧИЕ БЛЮДА',burgers:'ФАСТ-ФУД',sushi:'Суши & Роллы',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
     dishes:{
       hot:[
       {name:'Пилав усту донер',desc:'Мясо говядина, фри, рис, салат',price:560},
@@ -546,13 +547,14 @@ const T={
       {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590}
       ],
       burgers:[
+      {divider:'БУРГЕРЫ'},
       {name:'Бургер',desc:'котлета, листья салата, помидор, соленые огурцы',price:260},
       {name:'Бургер Andalus',desc:'Котлета фирменная, сыр моцарелла, сыр чеддер, огурцы маринованные, помидоры, листься салата, соус фирменный',price:300},
-      {name:'Картошка фри',desc:'Картофель фри с кетчупом',price:180},
       {name:'Чизбургер премиум',desc:'Котлета, листья салата, помидор, соленые огурцы, сыр чеддер',price:260},
       {name:'Чикен бургер',desc:'Филе куриное, огурцы соленые, помидоры, листья салата',price:260},
       {name:'Чикен чиз бургер',desc:'Куриная котлета, сыр чеддер, огурцы, помидоры, листья салата',price:240},
       {name:'Чизбургер',desc:'Котлета, листья салата, помидоры, соленые огурцы, капуста',price:270},
+      {divider:'ШАУРМА'},
       {name:'Шаурма куриная',desc:'Куриное мясо, помидоры, листья салата, соленые огурцы, капуста',price:250},
       {name:'Шаурма говяжая',desc:'Говяжье мясо, помидоры, чипсы, соленые огурцы, капуста',price:270},
       {name:'Шаурма ассорти',desc:'Говяжье мясо, куриное мясо, фри, помидоры, соленые огурцы, соус, сыр, лаваш, капуста',price:270},
@@ -560,11 +562,11 @@ const T={
       {name:'Твистер говяжий',desc:'',price:260},
       {name:'Твистер куриный',desc:'',price:240},
       {name:'Шаурма на тарелке',desc:'Мясо, помидоры, огурцы, картофель фри, салат, соус',price:340},
-      {name:'Донер',desc:'Мясо, огурцы, помидоры, капуста, чипсы',price:250}
+      {name:'Донер',desc:'Мясо, огурцы, помидоры, капуста, чипсы',price:250},
+      {divider:'ЗАКУСКИ'},
+      {name:'Картошка фри',desc:'Картофель фри с кетчупом',price:180},
       ],
       sushi:[
-      {name:'',desc:'',price:450},
-      {name:'',desc:'',price:420},
       {divider:'СЕТЫ'},
       {name:'Сет Унаги',desc:'Запеченный унаги, Токио, Патай',price:1130},
       {name:'Сет Сладкий',desc:'Шоколадный, Сладкий, Ролл карамельный, Ролл с клубникой',price:1100},
@@ -574,7 +576,15 @@ const T={
       {name:'Мини сет запеченный',desc:'Запеченная курица 0,5, СПА 0,5, Запеченная филодельфия 0,5, Запеченный лосось 0,5',price:640},
       {name:'Мини сет темпура',desc:'Патай 0,5, Дабл чиз 0,5, Запеченный темпура 0,5, Темпура фурай 0,5',price:740},
       {name:'Сет Запеченный',desc:'Калифорния хот, спа, фласкай, запеченная курица',price:1100},
-      
+      {name:'Сет Темпура',desc:'Сусуко, американский лайт, Шанхай, патай',price:1340},
+      {name:'Сет Филадельфия',desc:'Фила хот, филадельфия, филадельфия лайт, филадельфия делюкс, филадельфия кунсей, филадельфия запеченная',price:2340},
+      {name:'Сет Мини Филадельфия',desc:'Фила хот, Филадельфия делюкс, Филадельфия кунсей, Филадельфия лайт',price:800},
+      {name:'Сет Перекус',desc:'Сяки Мяки, караваки, унаги маки, филодельфия лайт',price:990},
+      {name:'Сет Темпура 2',desc:'Темпура-Фурай, Горячий шик, Дабл чиз, Запеченная темпура',price:1470},
+      {name:'Сет Ассорти',desc:'Лавалайт, филадельфия, калифорния крев., калифорния лайт, кунсей, ролл масаго, ролл фетаки',price:2450},
+      {name:'Сет Ассорти 2',desc:'Филадельфия, калифорния лайт, запеченный темпура, темпура фурай, горячий шик, ойси ролл, фила хот, запеченный лосось',price:3070},
+      {name:'Сет Соусный рай',desc:'лавалайт, запеченная курица, калифорния лайт, спа',price:1140},
+      {name:'Сет Andalus',desc:'филадельфия делюкс, ролл чеддер, калифорния лосось, фила хот, киото, сяки сушки',price:2160},      
       ],
       mains:[
       {name:'',desc:'',price:0},
