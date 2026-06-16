@@ -466,6 +466,24 @@ const VARIANTS={
 };
 let modalDish=null,modalSelectedVariant=null;
 
+// Свайп вниз для закрытия модалки
+let touchStartY=0;
+document.addEventListener('touchstart',e=>{
+  if(e.target.closest('.dish-modal'))touchStartY=e.touches[0].clientY;
+});
+document.addEventListener('touchmove',e=>{
+  if(!e.target.closest('.dish-modal'))return;
+  const diff=e.touches[0].clientY-touchStartY;
+  if(diff>0)document.getElementById('dish-modal').style.transform=`translateY(${diff}px)`;
+});
+document.addEventListener('touchend',e=>{
+  if(!e.target.closest('.dish-modal'))return;
+  const diff=e.changedTouches[0].clientY-touchStartY;
+  const modal=document.getElementById('dish-modal');
+  if(diff>80){closeModal();modal.style.transform='';}
+  else{modal.style.transform='';}
+});
+
 function openModal(catId,idx){
   const d=T[lang].dishes[catId][idx],imgUrl=(IMGS.dishes[catId]||[])[idx]||'',emoji=EMOJIS[catId]||'🍽';
   modalDish={catId,idx,dish:d,imgUrl,emoji};
@@ -506,21 +524,21 @@ function modalAddToCart(){
 
 const IMGS={
   cats:{
-    hot:'hot.jpg',
+    hot:'hot.webp',
     burgers:'burger.webp',
-    sushi:'set-sladkiy.jpg',
-    mains:'iskender.jpg',
-    drinks:'napitki.jpg'
+    sushi:'set-sladkiy.webp',
+    mains:'iskender.webp',
+    drinks:'napitki.webp'
   },
   dishes:{
-    hot:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    burgers:['burger.webp','burger-andalus.jpg', 'cheeseburger-premium.jpg', 'chicken-burger.jpg', 'chickencheese-burger.jpg', 
-    'cheeseburger.jpg', 'shaurma-chicken.jpg', 'shaurma-govyadina.jpg', 
-    'shaurma-assorti.jpg', 'shaurma-zapech.jpg', 'tvister-govyadina.jpg', 'tvister-chicken.jpg', 'shaurma-na-tarelke.jpg', 'doner.jpg', 'fries.jpg'],
-    sushi:['set-unagi.jpg','set-sladkiy.jpg','set-sake.jpg','set-zapechenniy2.jpg', 'set-mini.jpg', 'set-mini-tempura.jpg', 
-    'set-zapechenniy.jpg', 'set-tempura.jpg', 'set-filadelfia.jpg','set-mini-filadelfia.jpg', 'set-perekus.jpg', 'set-tempura2.jpg', 'set-assorti.jpg', 'set-assorti2.jpg', 'set-sous-ray.jpg', 'set-andalus.jpg'],
-    mains:['iskender.jpg', 'ustu-doner.jpg','pors-doner.jpg','ustu-assorti.jpg', 'pors-assorti.jpg', 'pilav-tavuk.jpg', 'pors-tavuk.jpg'],
-    drinks:['cola.jpg','fanta.jpg','sprite.jpg','fuse-tea.jpg','piko.jpg','sok.jpg','bonaqua.jpg']
+    hot:['iskender.webp', 'ustu-doner.webp','pors-doner.webp','ustu-assorti.webp', 'pors-assorti.webp', 'pilav-tavuk.webp', 'pors-tavuk.webp'],
+    burgers:['burger.webp','burger-andalus.webp', 'cheeseburger-premium.webp', 'chicken-burger.webp', 'chickencheese-burger.webp', 
+    'cheeseburger.webp', 'shaurma-chicken.webp', 'shaurma-govyadina.webp', 
+    'shaurma-assorti.webp', 'shaurma-zapech.webp', 'tvister-govyadina.webp', 'tvister-chicken.webp', 'shaurma-na-tarelke.webp', 'doner.webp', 'fries.webp'],
+    sushi:['set-unagi.webp','set-sladkiy.webp','set-sake.webp','set-zapechenniy2.webp', 'set-mini.webp', 'set-mini-tempura.webp', 
+    'set-zapechenniy.webp', 'set-tempura.webp', 'set-filadelfia.webp','set-mini-filadelfia.webp', 'set-perekus.webp', 'set-tempura2.webp', 'set-assorti.webp', 'set-assorti2.webp', 'set-sous-ray.webp', 'set-andalus.webp'],
+    mains:['iskender.webp', 'ustu-doner.webp','pors-doner.webp','ustu-assorti.webp', 'pors-assorti.webp', 'pilav-tavuk.webp', 'pors-tavuk.webp'],
+    drinks:['cola.webp','fanta.webp','sprite.webp','fuse-tea.webp','piko.webp','sok.webp','bonaqua.webp']
   }
 };
 
