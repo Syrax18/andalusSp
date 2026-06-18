@@ -171,10 +171,21 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .qty-btn{width:28px;height:28px;background:rgba(139,26,26,.15);border:1px solid rgba(201,168,76,.32);color:var(--gold);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s;line-height:1;font-family:'Jost',sans-serif}
 .qty-btn:hover,.qty-btn:active{background:rgba(139,26,26,.35)}
 .qty-num{width:32px;height:28px;background:rgba(201,168,76,.06);border-top:1px solid rgba(201,168,76,.28);border-bottom:1px solid rgba(201,168,76,.28);color:var(--text);font-family:'Cinzel',serif;font-size:12px;display:flex;align-items:center;justify-content:center}
-.add-btn{padding:6px 14px;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;transition:background .22s,color .22s,border-color .22s;white-space:nowrap}
-.add-btn:hover,.add-btn:active{background:var(--red);border-color:var(--red);color:#fff}
-.float-label{position:fixed;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);pointer-events:none;z-index:9999;animation:floatUp .7s ease forwards}
-
+.add-btn{padding:6px 14px;background:transparent;border:1px solid rgba(201,168,76,.4);color:var(--gold);font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;cursor:pointer;transition:background .22s,color .22s,border-color .22s,transform .1s;white-space:nowrap;-webkit-tap-highlight-color:transparent;}
+@media (hover: hover) {
+  .add-btn:hover {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+}
+.add-btn:active {
+  transform: scale(0.95);
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.float-label{position:fixed;font-family:'Cinzel',serif;font-size:13px;color:var(--gold);pointer-events:none;}
 /* ══ S5 CART ══ */
 #s5{z-index:6;background:var(--dark)}
 .cart-header{width:100%;padding:14px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(201,168,76,.12);background:rgba(17,10,10,.97);backdrop-filter:blur(14px);flex-shrink:0}
