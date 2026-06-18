@@ -47,7 +47,7 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 
 /* ══ LOGO ══ */
 /* S1 — крупный логотип по центру */
-.site-logo{display:block;width:min(280px,72vw);height:auto;object-fit:contain;mix-blend-mode:multiply;filter:contrast(1.1)}
+.site-logo{display:block;width:min(280px,72vw);height:auto;object-fit:contain;filter:contrast(1.15) brightness(1.7) drop-shadow(0 6px 28px rgba(201,168,76,.16))}
 /* Хедеры S2-S6 — заметно крупнее */
 .site-logo-sm{display:block;width:90px;height:auto;object-fit:contain;filter:contrast(1.1) brightness(1.8)}
 
@@ -121,8 +121,8 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .cat-card{position:relative;border:1px solid rgba(201,168,76,.2);cursor:pointer;overflow:hidden;aspect-ratio:1/0.85;background:var(--dark2);transition:border-color .3s,transform .28s,box-shadow .3s;animation:fadeUp .5s ease both}
 .cat-card:nth-child(5){grid-column:span 2;aspect-ratio:unset;height:100px}
 .cat-card:hover,.cat-card:active{border-color:rgba(139,26,26,.7);transform:translateY(-3px);box-shadow:0 10px 36px rgba(0,0,0,.45)}
-.cat-bg-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.45;transition:opacity .3s}
-.cat-card:hover .cat-bg-img,.cat-card:active .cat-bg-img{opacity:0.62}
+.cat-bg-img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;opacity:0.58;filter:saturate(1.2) contrast(1.05);transition:opacity .3s,transform .5s ease}
+.cat-card:hover .cat-bg-img,.cat-card:active .cat-bg-img{opacity:0.78;transform:scale(1.06)}
 .cat-ov{
   position:absolute;inset:0;
   background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(8,2,2,0.88) 100%);
@@ -157,8 +157,8 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .back-btn:hover,.back-btn:active{background:rgba(139,26,26,.2);transform:translateX(-2px)}
 .i-title{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.16em;color:var(--gold);font-weight:400;position:absolute;left:0;right:0;text-align:center;white-space:nowrap;overflow:hidden;pointer-events:none}
 .dishes-list{padding:14px 12px 80px;width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
-.dish-card{display:grid;grid-template-columns:110px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s;animation:fadeUp .4s ease both;border-radius:2px}
-.dish-img{width:110px;height:110px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1010,#0f0606);overflow:hidden;flex-shrink:0;position:relative}
+.dish-card{display:grid;grid-template-columns:130px 1fr;border:1px solid rgba(201,168,76,.15);background:var(--dark2);overflow:hidden;transition:border-color .3s;animation:fadeUp .4s ease both;border-radius:2px}
+.dish-img{width:130px;height:130px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1010,#0f0606);overflow:hidden;flex-shrink:0;position:relative}
 .dish-img img{width:100%;height:100%;object-fit:cover;display:block}
 .dish-img-fallback{font-size:32px}
 .dish-shimmer{background:linear-gradient(90deg,#1a1010 0%,#2a1518 50%,#1a1010 100%);background-size:200% 100%;animation:shimmer 1.6s infinite}
@@ -254,6 +254,13 @@ html,body{width:100%;height:100%;background:var(--black);color:var(--text);font-
 .restaurant-info{text-align:center;padding:8px 16px 0;animation:fadeUp .5s ease both .3s}
 .restaurant-info p{font-size:12px;color:var(--text-dim);line-height:1.9;font-weight:300}
 .restaurant-info .info-gold{color:var(--gold-dim);font-family:'Cormorant Garamond',serif;font-size:14px;font-style:italic}
+
+/* ══ ФИРМЕННАЯ ТЕКСТУРА — андалусский орнамент zellige, едва заметный ══ */
+#s1,#s2,#s3,#s4,#s5,#s6{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><g fill='none' stroke='rgba(201,168,76,0.05)' stroke-width='1'><rect x='14' y='14' width='112' height='112' transform='rotate(45 70 70)'/><rect x='14' y='14' width='112' height='112'/></g></svg>");
+  background-size:140px 140px;
+  background-repeat:repeat;
+}
 
 .floating-cart{position:fixed;left:12px;right:12px;bottom:-100px;max-width:476px;margin:0 auto;background:var(--red);border-radius:12px;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;z-index:150;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.45);transition:bottom .35s cubic-bezier(0.16,1,0.3,1)}
 .floating-cart.show{bottom:16px}
@@ -661,7 +668,7 @@ const T={
     address_val:'пр. Тумонбая Байзакова, 141, Манас',work_hours_label:'Ждём вас каждый день',
     work_hours_val:'Пн–Вс: 10:00 — 23:00',
     total:'ИТОГО',cart_note:'Покажите этот экран официанту',cart_empty:'Корзина пуста',
-    cats:{hot:'ГОРЯЧИЕ БЛЮДА',burgers:'ФАСТ-ФУД',sushi:'Суши & Роллы',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
+    cats:{hot:'ГОРЯЧИЕ БЛЮДА',burgers:'ФАСТ-ФУД',sushi:'СУШИ & РОЛЛЫ',mains:'ГОРЯЧИЕ БЛЮДА',drinks:'НАПИТКИ'},
     dishes:{
       hot:[
       {name:'Пилав усту донер',desc:'Мясо говядина, фри, рис, салат',price:560},
@@ -835,7 +842,7 @@ function startDots(){
     step++;
     dots.forEach((d,i)=>d.classList.toggle('active',i<=step));
     if(step>=3)clearInterval(dotTimer);
-  },1000);
+  },2500);
 }
 
 function goTo(fromId,toId,dir){
@@ -849,7 +856,7 @@ function goTo(fromId,toId,dir){
     to.scrollTop=0;
     const sc=to.querySelector('.scroll-area');if(sc)sc.scrollTop=0;
     setTimeout(()=>to.classList.remove('do-enter-up','do-enter-down'),700);
-    if(toId==='s2'){clearTimeout(greetTimer);startDots();greetTimer=setTimeout(()=>goTo('s2','s3','up'),5000)}
+    if(toId==='s2'){clearTimeout(greetTimer);startDots();greetTimer=setTimeout(()=>goTo('s2','s3','up'),8000)}
     if(toId==='s3')buildCats();
     if(toId==='s5')renderCart();
   },360);
