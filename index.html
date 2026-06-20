@@ -501,6 +501,19 @@ const VARIANTS={
   'Fuse tea':[{label:'0,5 л',price:100},{label:'1 л',price:120}],
   'Piko':[{label:'0,5 л',price:120},{label:'1 л',price:160}],
   'Bonaqua':[{label:'0,5 л',price:50},{label:'1 л',price:70}],
+  'Овощная Пицца':[{label:'Стандартный',price:430},{label:'Большой',price:540}],
+  'Мясное Ассорти':[{label:'Стандартный',price:470},{label:'Большой',price:590}],
+  'Чизбургер Пицца':[{label:'Стандартный',price:490},{label:'Большой',price:600}],
+  'Ханский':[{label:'Стандартный',price:590},{label:'Большой',price:670}],
+  'Филадельфия Пицца':[{label:'Стандартный',price:640},{label:'Большой',price:730}],
+  'Цезарь с курицей':[{label:'Стандартный',price:460},{label:'Большой',price:580}],
+  'Комбо пицца':[{label:'Стандартный',price:510},{label:'Большой',price:600}],
+  'Лоренцо':[{label:'Стандартный',price:500},{label:'Большой',price:590}],
+  'Грибная':[{label:'Стандартный',price:520},{label:'Большой',price:610}],
+  'Гавайская':[{label:'Стандартный',price:420},{label:'Большой',price:610}],
+  'Американо':[{label:'Стандартный',price:420},{label:'Большой',price:610}],
+  'Мясной фреш':[{label:'Стандартный',price:610},{label:'Большой',price:750}],
+
 };
 let modalDish=null,modalSelectedVariant=null;
 
@@ -565,7 +578,7 @@ const IMGS={
     hot:'hot.webp',
     burgers:'burger.webp',
     sushi:'set-sladkiy.webp',
-    pizza:'iskender.webp',
+    pizza:'ovoshnaya.webp',
     drinks:'napitki.webp'
   },
   dishes:{
@@ -663,7 +676,20 @@ const IMGS={
       'set-naslajdenie.webp',
       'set-vstrecha.webp',
     ],
-    pizza:[],
+    pizza:[
+      'ovoshnaya.webp',
+      'myasnoe-assorty.webp',
+      'cheeseburger-pizza.webp',
+      'hanskiy.webp',
+      'filadeldia-pizza.webp',
+      'tsezar.webp',
+      'combo-pizza.webp',
+      'lorenzo.webp',
+      'gribnaya.webp',
+      'gavayskoe.webp',
+      'americano.webp',
+      'myasnoy-fresh.webp',
+    ],
     drinks:['cola.webp','fanta.webp','sprite.webp','fuse-tea.webp','piko.webp','sok.webp','bonaqua.webp']
   }
 };
@@ -754,8 +780,6 @@ const T={
       {name:'Запеченная курица 0,5 п, Спа 0,5',desc:'',price:270},
       {name:'Запеченный унаги 0,5 п, Запеченный лосось 0,5',desc:'',price:370},
       {name:'Запеченный кани 0,5 п, Ойси 0,5',desc:'',price:440},
-
-
       
       {divider:'СЕТЫ'},
       {name:'Сет Унаги',desc:'Запеченный унаги, Токио, Патай',price:1130},
@@ -779,13 +803,21 @@ const T={
       {name:'Сет Встреча',desc:'Филадельфия, дабл чиз, ролл масаго',price:1100}      
       ],
       pizza:[
-      {name:'',desc:'',price:0},
-      {name:'',desc:'',price:0},
-      {name:'',desc:'',price:0},
-      {name:'',desc:'',price:0},
-      {name:'',desc:'',price:0},
-      {name:'',desc:'',price:0},
-      {name:'',desc:'',price:0}],
+      {name:'Овощная Пицца',desc:'Сыр эмилья, соус томатный, кабачок, баклажан, брокколи, грибы, болгарский перец, черри',price:430},
+      {name:'Мясное Ассорти',desc:'Мясо говядина, куриное филе, помидор, болгарский перец, соус томатный, сыр эмилья',price:470},
+      {name:'Чизбургер Пицца',desc:'Пицца соус, сыр эмиля, помидор, котлеты, маринованные огурцы, красный лук, розовый соус',price:490},
+      {name:'Ханский',desc:'Казы, Сыр эмиля, красный лук, томатный соус',price:590},
+      {name:'Филадельфия Пицца',desc:'Соус цезарь, Сыр эмиля, лосось, сыр креметто, кунжут, соус унаги',price:640},
+      {name:'Цезарь с курицей',desc:'Сыр пармезан, сыр моцарелла, соус цезарь, помидор, курица',price:460},
+      {name:'Комбо Пицца',desc:'Белый соус, сыр эмилья, колбаса, грибы, копченая курица, перец болгарский, помидор, оливки',price:510},
+      {name:'Лоренцо',desc:'Белый соус, сыр эмилья, колбаса, куриное филе, помидор, розовый соус, сыр пармезан',price:520},
+      {name:'Грибная',desc:'Томатный соус, сыр эмилья, грибы, чесночное масло, черный перец, сыр пармезан',price:520},
+      {name:'Гавайская',desc:'Соус цезарь, сыр эмилья, филе куриное, ананас',price:420},
+      {name:'Американо',desc:'Соус цезар, сыр эмилья, филе куриное, перец болгарский, томат чэрри, рукола, шампиньоны',price:450},
+      {name:'Мясной фреш',desc:'Сыр эмилья, мясо говядина, помидор, сыр фетакса, листья шпината, соус сырный',price:610}
+
+      
+      ],
       drinks:[
       {name:'Coca Cola',desc:'1 литр',price:120},
       {name:'Fanta',desc:'1 литр',price:120},
