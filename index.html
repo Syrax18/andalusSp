@@ -578,6 +578,7 @@ function modalAddToCart(){
   const key=modalDish.catId+'_'+modalDish.idx+(label?'_'+label:'');
   if(cart[key])cart[key].qty+=1;
   else cart[key]={name:d.name+(label?' ('+label+')':''),price,imgUrl:modalDish.imgUrl,emoji:modalDish.emoji,qty:1};
+  saveCart();
   updateBadge();
   const btn=document.getElementById('modal-add-btn');
   btn.innerHTML='<span>✓ ДОБАВЛЕНО</span>';btn.style.background='#2a6b2a';
@@ -732,13 +733,13 @@ const T={
     cats:{hot:'ГОРЯЧИЕ БЛЮДА',burgers:'ФАСТ-ФУД',sushi:'СУШИ & РОЛЛЫ',pizza:'ПИЦЦА',drinks:'НАПИТКИ'},
     dishes:{
       hot:[
+      {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590},
       {name:'Пилав усту донер',desc:'Мясо говядина, фри, рис, салат',price:560},
       {name:'Порсион донер',desc:'Мясо говядина, фри, рис, салат',price:570},
       {name:'Пилав усту донер ассорти',desc:'Мясо говядина, мясо куриное, фри, рис, салат',price:560},
       {name:'Порсион донер ассорти',desc:'Мясо говядина, мясо куриное, фри, рис, салат',price:560},
       {name:'Пилав усту тавук донер',desc:'Мясо куриное, фри, рис, салат',price:510},
       {name:'Порсион тавук донер',desc:'Мясо куриное, рис, салат, фри',price:510},
-      {name:'Искандер кебап',desc:'Мясо говядина, хлеб, йогурт, томат, соус',price:590}
       ],
       burgers:[
       {divider:'БУРГЕРЫ'},
@@ -881,14 +882,13 @@ const T={
     cats:{hot:'ЫСЫК ТАМАКТАР',burgers:'БУРГЕРЛЕР',sushi:'СУШИ',pizza:'ПИЦЦА',drinks:'СУУСУНДУКТАР'},
     dishes:{
       hot:[
-        
+      {name:'Искандер кебап',desc:'Уй эти, нан, йогурт, томат, соус',price:590},  
       {name:'Пилав усту донер',desc:'Уй эти, фри картошкасы, күрүч, салат',price:560},
       {name:'Порсион донер',desc:'Уй эти, фри картошкасы, күрүч, салат',price:570},
       {name:'Пилав усту донер ассорти',desc:'Уй эти, тоок эти, фри картошкасы, күрүч, салат',price:560},
       {name:'Порсион донер ассорти',desc:'Уй эти, тоок эти, фри картошкасы, күрүч, салат',price:560},
       {name:'Пилав усту тавук донер',desc:'Тоок эти, фри картошкасы, күрүч, салат',price:510},
       {name:'Порсион тавук донер',desc:'Тоок эти, күрүч, салат, фри картошкасы',price:510},
-      {name:'Искандер кебап',desc:'Уй эти, нан, йогурт, томат, соус',price:590}
       ],
       burgers:[
         
@@ -910,6 +910,11 @@ const T={
       {name:'Донер',desc:'Эт, бадыраң, помидор, капуста, чипсилер',price:250},
       {divider:'ЗАКУСКАЛАР'},
       {name:'Картошка фри',desc:'Кетчуп менен фри картошкасы',price:180},
+      {name:'Крылышки',desc:'Соус менен тоок канаттары',price:300},
+      {name:'Наггетсы',desc:'Соус менен тоок наггетстери',price:320},
+      {name:'крылышки в кисло-сладком соусе',desc:'',price:310},
+      {name:'Сырные палочки',desc:'',price:160},
+      {name:'Сосиска в кляре',desc:'',price:140}
       ],
       sushi:[
         
@@ -989,7 +994,12 @@ const T={
 
 const CAT_IDS=['hot','burgers','sushi','pizza','drinks'];
 const EMOJIS={hot:'🔥',burgers:'🍔',sushi:'🍣',pizza:'🍕',drinks:'🍵'};
-let lang='ru',curCat=null,greetTimer=null,dotTimer=null,cart={};
+let lang='ru',curCat=null,greetTimer=null,dotTimer=null;
+let cart=JSON.parse(localStorage.getItem('andalus_cart')||'{}');
+
+function saveCart(){
+  localStorage.setItem('andalus_cart',JSON.stringify(cart));
+};
 
 function toggleLang(el){el.classList.toggle('open')}
 function setLang(l,el){
@@ -1092,11 +1102,13 @@ function addItem(key,e){
   const[catId,idx]=key.split('_'),d=T[lang].dishes[catId][idx],imgUrl=(IMGS.dishes[catId]||[])[idx]||'';
   cart[key]={name:d.name,price:d.price,imgUrl,emoji:EMOJIS[catId]||'🍽',qty:1};
   refreshCtrl(key);updateBadge();spawnFloat(e);
+  saveCart();
 }
 function changeQty(key,delta,e){
   if(!cart[key])return;cart[key].qty+=delta;
   if(cart[key].qty<=0)delete cart[key];
   refreshCtrl(key);updateBadge();if(delta>0&&e)spawnFloat(e);
+  saveCart();
 }
 function refreshCtrl(key){const el=document.getElementById('ctrl-'+key);if(el)el.innerHTML=renderCtrl(key,cart[key]?cart[key].qty:0)}
 function updateBadge(){
@@ -1148,10 +1160,12 @@ function cartQty(key,delta){
   if(!cart[key])return;cart[key].qty+=delta;
   if(cart[key].qty<=0)delete cart[key];
   updateBadge();renderCart();if(curCat)renderDishes(curCat);
+  saveCart();
 }
-function cartDel(key){delete cart[key];updateBadge();renderCart();if(curCat)renderDishes(curCat)}
+function cartDel(key){delete cart[key];updateBadge();renderCart();if(curCat)renderDishes(curCat);saveCart();}
 
 buildCats();
+updateBadge();
 </script>
 </body>
 </html>
